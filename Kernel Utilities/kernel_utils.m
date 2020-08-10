@@ -5,7 +5,7 @@
 #import "../sock_port/offsets.h"
 #import "kexecute.h"
 #include "../sock_port/kernel_memory.h"
-
+#include <stdbool.h>
 
 static mach_port_t tfpzero;
 
@@ -85,7 +85,7 @@ uint64_t FindPortAddress(mach_port_name_t port) {
 
 mach_port_t FakeHostPriv_port = MACH_PORT_NULL;
 
-BOOL PatchHostPriv(mach_port_t host) {
+bool PatchHostPriv(mach_port_t host) {
     
 #define IO_ACTIVE 0x80000000
 #define IKOT_HOST_PRIV 4
@@ -102,7 +102,7 @@ BOOL PatchHostPriv(mach_port_t host) {
     uint32_t new = rk32(host_kaddr);
     printf("[-] New host type: 0x%x\n", new);
     
-    return ((IO_ACTIVE | IKOT_HOST_PRIV) == new) ? YES : NO;
+    return ((IO_ACTIVE | IKOT_HOST_PRIV) == new) ? true : false;
 }
 
 // build a fake host priv port
@@ -223,7 +223,7 @@ void MakePortFakeTaskPort(mach_port_t port, uint64_t task_kaddr) {
 }
 
 uint64_t proc_of_pid(pid_t pid) {
-    uint64_t proc = rk64(Find_allproc()), pd;
+    uint64_t proc = rk64(find_allproc()), pd;
     while (proc) { //iterate over all processes till we find the one we're looking for
         pd = rk32(proc + off_p_pid);
         if (pd == pid) return proc;
@@ -234,7 +234,7 @@ uint64_t proc_of_pid(pid_t pid) {
 }
 
 uint64_t proc_of_procName(char *nm) {
-    uint64_t proc = rk64(Find_allproc());
+    uint64_t proc = rk64(find_allproc());
     char name[40] = {0};
     while (proc) {
         kread(proc + off_p_comm, name, 40); //read 20 bytes off the process's name and compare
@@ -245,7 +245,7 @@ uint64_t proc_of_procName(char *nm) {
 }
 
 unsigned int pid_of_procName(char *nm) {
-    uint64_t proc = rk64(Find_allproc());
+    uint64_t proc = rk64(find_allproc());
     char name[40] = {0};
     while (proc) {
         kread(proc + off_p_comm, name, 40);
@@ -347,7 +347,7 @@ uint64_t ZmFixAddr(uint64_t addr) {
     
     if (zm_hdr.start == 0) {
         // xxx rk64(0) ?!
-        uint64_t zone_map = rk64(Find_zone_map_ref());
+        uint64_t zone_map = rk64(find_zone_map_ref());
         // hdr is at offset 0x10, mutexes at start
         size_t r = kread(zone_map + 0x10, &zm_hdr, sizeof(zm_hdr));
         //printf("zm_range: 0x%llx - 0x%llx (read 0x%zx, exp 0x%zx)\n", zm_hdr.start, zm_hdr.end, r, sizeof(zm_hdr));
