@@ -7,6 +7,7 @@
 //
 
 #import "blizzardView.h"
+#include "blizzardJailbreak.h"
 
 @interface blizzardView ()
 
@@ -19,7 +20,7 @@
  
 }
 - (IBAction)blizzardInit:(id)sender {
-    
+    exploit_init();
 }
 
 /*

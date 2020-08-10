@@ -16,7 +16,7 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 int* offsets = NULL;
-
+// proc_t
 int kstruct_offsets_10_x[] = {
     0xb,   // KSTRUCT_OFFSET_TASK_LCK_MTX_TYPE,
     0x10,  // KSTRUCT_OFFSET_TASK_REF_COUNT,

@@ -9,7 +9,11 @@
 #define blizzardJailbreak_h
 
 #include <stdio.h>
-mach_port_t tfp0;
+extern mach_port_t tfp0;
+
 int exploit_init(void);
+int rootifyOurselves(void);
+int rootifyProcessByPid(void);
+uint64_t findOurOwnProcess(void);
 
 #endif /* blizzardJailbreak_h */

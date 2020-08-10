@@ -1,3 +1,6 @@
+#ifndef offsets_h
+#define offsets_h
+
 enum kstruct_offset {
     /* struct task */
     KSTRUCT_OFFSET_TASK_LCK_MTX_TYPE,
@@ -51,3 +54,4 @@ int koffset(enum kstruct_offset offset);
 void offsets_init(void);
 
 extern uint32_t create_outsize;
+#endif 

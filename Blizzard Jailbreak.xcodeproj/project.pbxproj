@@ -19,6 +19,10 @@
 		82F17A1422DF4ED800231F8C /* socket_freeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A1322DF4ED800231F8C /* socket_freeUITests.m */; };
 		82F17A2322DF4EF100231F8C /* exploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2122DF4EF100231F8C /* exploit.c */; };
 		82F17A2622DF4F1C00231F8C /* exploit_utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2422DF4F1C00231F8C /* exploit_utilities.c */; };
+		D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E424E1C7EA002E6756 /* patchfinder64.m */; };
+		D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E624E1C7F7002E6756 /* kexecute.c */; };
+		D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */; };
+		D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EC24E1C83E002E6756 /* offsetof.c */; };
 		D63EDAC124E1989F009B305D /* blizzardJailbreak.c in Sources */ = {isa = PBXBuildFile; fileRef = D63EDABF24E1989F009B305D /* blizzardJailbreak.c */; };
 		D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */; };
 /* End PBXBuildFile section */
@@ -66,6 +70,14 @@
 		82F17A2422DF4F1C00231F8C /* exploit_utilities.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = exploit_utilities.c; sourceTree = "<group>"; };
 		82F17A2522DF4F1C00231F8C /* exploit_utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exploit_utilities.h; sourceTree = "<group>"; };
 		82F17A2822DF57B700231F8C /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = socket_free/IOKit.tbd; sourceTree = "<group>"; };
+		D62CA1E324E1C7EA002E6756 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
+		D62CA1E424E1C7EA002E6756 /* patchfinder64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = patchfinder64.m; sourceTree = "<group>"; };
+		D62CA1E624E1C7F7002E6756 /* kexecute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kexecute.c; sourceTree = "<group>"; };
+		D62CA1E724E1C7F7002E6756 /* kexecute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kexecute.h; sourceTree = "<group>"; };
+		D62CA1E924E1C7FF002E6756 /* kernel_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel_utils.h; sourceTree = "<group>"; };
+		D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kernel_utils.m; sourceTree = "<group>"; };
+		D62CA1EC24E1C83E002E6756 /* offsetof.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = offsetof.c; sourceTree = "<group>"; };
+		D62CA1ED24E1C83E002E6756 /* offsetof.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsetof.h; sourceTree = "<group>"; };
 		D63EDABF24E1989F009B305D /* blizzardJailbreak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blizzardJailbreak.c; sourceTree = "<group>"; };
 		D63EDAC024E1989F009B305D /* blizzardJailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardJailbreak.h; sourceTree = "<group>"; };
 		D6FFA56024E1A59A00CAC2E2 /* blizzardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardView.h; sourceTree = "<group>"; };
@@ -100,6 +112,8 @@
 		82F179E322DF4ED700231F8C = {
 			isa = PBXGroup;
 			children = (
+				D62CA1DF24E1C6FB002E6756 /* Kernel Utilities */,
+				D62CA1DB24E1C660002E6756 /* PatchFinder */,
 				82F179EE22DF4ED700231F8C /* sock_port */,
 				D6FFA55F24E19E0900CAC2E2 /* Blizzard Jailbreak */,
 				82F17A0722DF4ED800231F8C /* sock_port_tests */,
@@ -130,6 +144,8 @@
 				8288501122E07303005D10FC /* kernel_memory.h */,
 				8288501422E07C14005D10FC /* offsets.h */,
 				8288501322E07C14005D10FC /* offsets.m */,
+				D62CA1EC24E1C83E002E6756 /* offsetof.c */,
+				D62CA1ED24E1C83E002E6756 /* offsetof.h */,
 				82E9B71422E24BAD0016AA39 /* iosurface.c */,
 				82E9B71322E24BAC0016AA39 /* iosurface.h */,
 			);
@@ -160,6 +176,26 @@
 				82F17A2822DF57B700231F8C /* IOKit.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D62CA1DB24E1C660002E6756 /* PatchFinder */ = {
+			isa = PBXGroup;
+			children = (
+				D62CA1E324E1C7EA002E6756 /* patchfinder64.h */,
+				D62CA1E424E1C7EA002E6756 /* patchfinder64.m */,
+			);
+			path = PatchFinder;
+			sourceTree = "<group>";
+		};
+		D62CA1DF24E1C6FB002E6756 /* Kernel Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D62CA1E924E1C7FF002E6756 /* kernel_utils.h */,
+				D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */,
+				D62CA1E624E1C7F7002E6756 /* kexecute.c */,
+				D62CA1E724E1C7F7002E6756 /* kexecute.h */,
+			);
+			path = "Kernel Utilities";
 			sourceTree = "<group>";
 		};
 		D6FFA55F24E19E0900CAC2E2 /* Blizzard Jailbreak */ = {
@@ -315,12 +351,16 @@
 			files = (
 				82F17A2622DF4F1C00231F8C /* exploit_utilities.c in Sources */,
 				D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */,
+				D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */,
 				82F179FF22DF4ED700231F8C /* main.m in Sources */,
+				D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */,
 				82F179F122DF4ED700231F8C /* AppDelegate.m in Sources */,
 				82F17A2322DF4EF100231F8C /* exploit.c in Sources */,
 				82E9B71522E24BAD0016AA39 /* iosurface.c in Sources */,
+				D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */,
 				8288501522E07C15005D10FC /* offsets.m in Sources */,
 				8288501222E07303005D10FC /* kernel_memory.c in Sources */,
+				D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */,
 				D63EDAC124E1989F009B305D /* blizzardJailbreak.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
