@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Blizzard View-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="blizzardView" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jailbreak_wallpaper" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IMk-rn-peb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="602"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="winter" translatesAutoresizingMaskIntoConstraints="NO" id="Suw-j9-Sy3">
+                                <rect key="frame" x="32" y="34" width="256" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="4cz-MJ-nsh"/>
+                                    <constraint firstAttribute="height" constant="150" id="veZ-H9-MjK"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by GeoSn0w (@FCE365)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nt-NA-u5V">
+                                <rect key="frame" x="30" y="527" width="260" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="r0k-jY-g8T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLIZZARD JAILBREAK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fV6-tC-CJz">
+                                <rect key="frame" x="30" y="190" width="260" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="ZrZ-fC-3IJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQt-HB-KcQ">
+                                <rect key="frame" x="40" y="260" width="240" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="n5b-aE-1UC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="JAILBREAK" backgroundImage="button_mask">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                </variation>
+                                <connections>
+                                    <action selector="blizzardInit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jh7-HL-oQs"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="fV6-tC-CJz" firstAttribute="top" secondItem="Suw-j9-Sy3" secondAttribute="bottom" constant="6" id="3Xc-Yf-VaY"/>
+                            <constraint firstItem="IMk-rn-peb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5Rf-lp-HFr"/>
+                            <constraint firstItem="ZQt-HB-KcQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="CEp-oy-DxF"/>
+                            <constraint firstItem="IMk-rn-peb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="COe-Os-yxH"/>
+                            <constraint firstItem="fV6-tC-CJz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Cdz-ud-Ycy"/>
+                            <constraint firstItem="Suw-j9-Sy3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-175" id="HOt-q2-t22"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZQt-HB-KcQ" secondAttribute="trailing" constant="40" id="SSW-cU-K2f"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2nt-NA-u5V" secondAttribute="bottom" constant="20" id="TkI-sm-9oq"/>
+                            <constraint firstItem="ZQt-HB-KcQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="WqY-g3-Csa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fV6-tC-CJz" secondAttribute="trailing" constant="30" id="Wxw-hN-w3e"/>
+                            <constraint firstItem="Suw-j9-Sy3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aLV-fL-jbw"/>
+                            <constraint firstAttribute="bottom" secondItem="IMk-rn-peb" secondAttribute="bottom" constant="-34" id="abB-9D-Xd3"/>
+                            <constraint firstItem="2nt-NA-u5V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="eGu-pX-zhC"/>
+                            <constraint firstItem="IMk-rn-peb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uRA-zq-YiX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2nt-NA-u5V" secondAttribute="trailing" constant="30" id="wiI-AC-2N6"/>
+                            <constraint firstItem="ZQt-HB-KcQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yPD-m1-UWo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="blizzardInit" destination="ZQt-HB-KcQ" id="TU9-7F-pmQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133.125" y="133.09859154929578"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="button_mask" width="100" height="100"/>
+        <image name="jailbreak_wallpaper" width="834" height="1194"/>
+        <image name="winter" width="256" height="256"/>
+    </resources>
+</document>
