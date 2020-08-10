@@ -382,14 +382,13 @@ uint64_t grabKernelBase() {
             data = rk32(slid_base);
         }
         
-        printf("[*] Found 0xfeedfacf header at 0x%llx, is that correct?\n", slid_base);
+        printf("[*] Found 0xfeedfacf Mach-O header at 0x%llx, checking...\n", slid_base);
         
         char buf[0x120];
         for (uint64_t addr = slid_base; addr < slid_base + 0x2000; addr += 8 /* 64 bits / 8 bits / byte = 8 bytes */) {
             kread(addr, buf, 0x120); // read 0x120 bytes into a char buffer
             
             if (!strcmp(buf, "__text") && !strcmp(buf + 16, "__PRELINK_TEXT")) { // found it!
-                printf("\t[+] Yes! Found __text and __PRELINK_TEXT!\n");
                 printf("\t[i] The Kernel base at 0x%llx\n", slid_base);
                 printf("\t[i] KASLR slide is 0x%x\n", slide);
                 printf("\t[i] Kernel header is 0x%x\n", rk32(slid_base));
@@ -397,7 +396,7 @@ uint64_t grabKernelBase() {
             }
             data = 0;
         }
-        printf("\t[-] Nope. Can't find __text and __PRELINK_TEXT, trying again!\n");
+        printf("\t[-] Could not find __text and __PRELINK_TEXT, trying again!\n");
     }
     return 0;
 }

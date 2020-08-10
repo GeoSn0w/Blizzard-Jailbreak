@@ -189,7 +189,7 @@ uint32_t create_outsize;
 
 void offsets_init() {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"12.0")) {
-        printf("[i] offsets selected for iOS 12.0 or above\n");
+        printf("[i] The offsets for iOS 12.0 or above are in use. \n");
         offsets = kstruct_offsets_12_0;
         
 #if __arm64e__
@@ -199,23 +199,23 @@ void offsets_init() {
     }
     
     else if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.3")) {
-        printf("[i] offsets selected for iOS 11.3 or above\n");
+        printf("[i] The offsets for iOS 12.0 or above are in use. \n");
         offsets = kstruct_offsets_11_3;
         create_outsize = 0xbc8;
     } else if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.1")) {
-        printf("[i] offsets selected for iOS 11.1 or above\n");
+        printf("The offsets for iOS 12 or above are in use. \n");
         offsets = kstruct_offsets_11_3;
         create_outsize = 0xbc8;
     } else if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
-        printf("[i] offsets selected for iOS 11.0 to 11.0.3\n");
+        printf("The offsets for iOS 11.0 or above are in use. \n");
         offsets = kstruct_offsets_11_0;
         create_outsize = 0x6c8;
     } else if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-        printf("[i] offsets selected for iOS 10.x\n");
+        printf("The offsets for iOS 10.0 or above are in use.\n");
         offsets = kstruct_offsets_10_x;
         create_outsize = 0x3c8;
     } else {
-        printf("[-] iOS version too low, 10.0 required\n");
+        printf("[-] The iOS version is too low! At least iOS 10.0 is required! \n");
         exit(EXIT_FAILURE);
     }
 }

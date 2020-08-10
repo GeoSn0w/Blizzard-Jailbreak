@@ -15,5 +15,6 @@ int exploit_init(void);
 int rootifyOurselves(void);
 int rootifyProcessByPid(void);
 uint64_t findOurOwnProcess(void);
+uint64_t escapeSandboxForProcess(pid_t proc_pid);
 
 #endif /* blizzardJailbreak_h */

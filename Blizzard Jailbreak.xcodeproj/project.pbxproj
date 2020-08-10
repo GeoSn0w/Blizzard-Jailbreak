@@ -210,8 +210,8 @@
 				82F179FE22DF4ED700231F8C /* main.m */,
 				82F179F522DF4ED700231F8C /* Main.storyboard */,
 				82F179FA22DF4ED700231F8C /* LaunchScreen.storyboard */,
-				D63EDABF24E1989F009B305D /* blizzardJailbreak.m */,
 				D63EDAC024E1989F009B305D /* blizzardJailbreak.h */,
+				D63EDABF24E1989F009B305D /* blizzardJailbreak.m */,
 				D6FFA56024E1A59A00CAC2E2 /* blizzardView.h */,
 				D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */,
 			);
