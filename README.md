@@ -1,5 +1,7 @@
 # Blizzard Jailbreak
-An Open-Source iOS 11.0 to 11.4.1 Jailbreak. Soon to support iOS 12 as well as iOS 13 up to iOS 13.5!
+An Open-Source iOS 11.0 to 11.4.1 Jailbreak. 
+Soon to support iOS 12 as well as iOS 13 up to iOS 13.5!
+
 This jailbreak is aimed at the beginner Jailbreak Developers who want to learn how to build iOS Jailbreaks.
 The code is kept simple with only the necessary components being added, while keeping a functional jailbreak.
 
