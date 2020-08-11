@@ -9,6 +9,7 @@
 #import "blizzardView.h"
 #include "blizzardJailbreak.h"
 
+
 @interface blizzardView ()
 
 @end
@@ -20,17 +21,10 @@
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n");
 }
 - (IBAction)blizzardInit:(id)sender {
+    _blizzardInit.enabled = NO;
+    [_blizzardInit setTitle:@"JAILBREAKING..." forState:UIControlStateDisabled];
+    [self performSegueWithIdentifier:@"vc" sender:self];
     exploit_init();
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

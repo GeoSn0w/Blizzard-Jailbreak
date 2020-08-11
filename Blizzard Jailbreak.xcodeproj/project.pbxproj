@@ -19,6 +19,7 @@
 		82F17A1422DF4ED800231F8C /* socket_freeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A1322DF4ED800231F8C /* socket_freeUITests.m */; };
 		82F17A2322DF4EF100231F8C /* exploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2122DF4EF100231F8C /* exploit.c */; };
 		82F17A2622DF4F1C00231F8C /* exploit_utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2422DF4F1C00231F8C /* exploit_utilities.c */; };
+		D613B71B24E217D90069CA9B /* BlizzardLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B71A24E217D90069CA9B /* BlizzardLog.m */; };
 		D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E424E1C7EA002E6756 /* patchfinder64.m */; };
 		D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E624E1C7F7002E6756 /* kexecute.c */; };
 		D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */; };
@@ -70,6 +71,8 @@
 		82F17A2422DF4F1C00231F8C /* exploit_utilities.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = exploit_utilities.c; sourceTree = "<group>"; };
 		82F17A2522DF4F1C00231F8C /* exploit_utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exploit_utilities.h; sourceTree = "<group>"; };
 		82F17A2822DF57B700231F8C /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = socket_free/IOKit.tbd; sourceTree = "<group>"; };
+		D613B71924E217D90069CA9B /* BlizzardLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardLog.h; sourceTree = "<group>"; };
+		D613B71A24E217D90069CA9B /* BlizzardLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardLog.m; sourceTree = "<group>"; };
 		D62CA1E324E1C7EA002E6756 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		D62CA1E424E1C7EA002E6756 /* patchfinder64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = patchfinder64.m; sourceTree = "<group>"; };
 		D62CA1E624E1C7F7002E6756 /* kexecute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kexecute.c; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				D63EDABF24E1989F009B305D /* blizzardJailbreak.m */,
 				D6FFA56024E1A59A00CAC2E2 /* blizzardView.h */,
 				D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */,
+				D613B71924E217D90069CA9B /* BlizzardLog.h */,
+				D613B71A24E217D90069CA9B /* BlizzardLog.m */,
 			);
 			path = "Blizzard Jailbreak";
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 				D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */,
 				D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */,
 				82F179FF22DF4ED700231F8C /* main.m in Sources */,
+				D613B71B24E217D90069CA9B /* BlizzardLog.m in Sources */,
 				D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */,
 				82F179F122DF4ED700231F8C /* AppDelegate.m in Sources */,
 				82F17A2322DF4EF100231F8C /* exploit.c in Sources */,

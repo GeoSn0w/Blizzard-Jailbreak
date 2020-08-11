@@ -14,6 +14,7 @@ extern mach_port_t tfp0;
 int exploit_init(void);
 int rootifyOurselves(void);
 int rootifyProcessByPid(void);
+int restoreProcessCredentials(uint64_t creds, pid_t pid);
 uint64_t findOurOwnProcess(void);
 uint64_t escapeSandboxForProcess(pid_t proc_pid);
 

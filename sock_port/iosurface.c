@@ -12,7 +12,7 @@ static bool IOSurface_initialized;
 
 // ---- Functions ---------------------------------------------------------------------------------
 
-#define ERROR(str, ...) printf("[-] "str, ##__VA_ARGS__)
+#define ERROR(str, ...) printf("IOSurface: "str, ##__VA_ARGS__)
 bool
 IOSurface_init() {
 	if (IOSurface_initialized) {
@@ -22,7 +22,7 @@ IOSurface_init() {
 			kIOMasterPortDefault,
 			IOServiceMatching("IOSurfaceRoot"));
 	if (IOSurfaceRoot == MACH_PORT_NULL) {
-		ERROR("could not find %s", "IOSurfaceRoot");
+		ERROR("IOSurface: Could not find %s", "IOSurfaceRoot");
 		return false;
 	}
 	kern_return_t kr = IOServiceOpen(
@@ -31,7 +31,7 @@ IOSurface_init() {
 			0,
 			&IOSurfaceRootUserClient);
 	if (kr != KERN_SUCCESS) {
-		ERROR("could not open %s", "IOSurfaceRootUserClient");
+		ERROR("IOSurface: could not open %s", "IOSurfaceRootUserClient");
 		return false;
 	}
 	struct _IOSurfaceFastCreateArgs create_args = { .alloc_size = 0x4000, };
@@ -47,7 +47,7 @@ IOSurface_init() {
 			NULL, NULL,
 			&lock_result, &lock_result_size);
 	if (kr != KERN_SUCCESS) {
-		ERROR("could not create %s: 0x%x", "IOSurfaceClient", kr);
+		ERROR("IOSurface: could not create %s: 0x%x", "IOSurfaceClient", kr);
 		return false;
 	}
 	IOSurface_id = lock_result.surface_id;
@@ -85,7 +85,7 @@ IOSurface_set_value(const struct IOSurfaceValueArgs *args, size_t args_size) {
 			NULL, NULL,
 			&result, &result_size);
 	if (kr != KERN_SUCCESS) {
-		ERROR("failed to %s value in %s: 0x%x", "set", "IOSurface", kr);
+		ERROR("IOSurface: failed to %s value in %s: 0x%x", "set", "IOSurface", kr);
 		return false;
 	}
 	return true;
@@ -108,7 +108,7 @@ IOSurface_get_value(const struct IOSurfaceValueArgs *in, size_t in_size,
 			NULL, NULL,
 			out, out_size);
 	if (kr != KERN_SUCCESS) {
-		ERROR("failed to %s value in %s: 0x%x", "get", "IOSurface", kr);
+		ERROR("IOSurface: failed to %s value in %s: 0x%x", "get", "IOSurface", kr);
 		return false;
 	}
 	return true;
@@ -132,7 +132,7 @@ IOSurface_remove_value(const struct IOSurfaceValueArgs *args, size_t args_size) 
 			NULL, NULL,
 			&result, &result_size);
 	if (kr != KERN_SUCCESS) {
-		ERROR("failed to %s value in %s: 0x%x", "remove", "IOSurface", kr);
+		ERROR("IOSurface: failed to %s value in %s: 0x%x", "remove", "IOSurface", kr);
 		return false;
 	}
 	return true;
@@ -337,17 +337,17 @@ IOSurface_spray_read_array(uint32_t array_id, uint32_t array_length, uint32_t da
 	// Do the ugly parsing ourselves. :(
 	uint32_t *xml = args_out->xml;
 	if (*xml++ != kOSSerializeBinarySignature) {
-		ERROR("did not find OSSerializeBinary signature");
+		ERROR("IOSurface: did not find OSSerializeBinary signature");
 		goto fail;
 	}
 	if (*xml++ != (kOSSerializeArray | array_length | kOSSerializeEndCollection)) {
-		ERROR("unexpected container");
+		ERROR("IOSurface: unexpected container");
 		goto fail;
 	}
 	for (uint32_t data_id = 0; data_id < array_length; data_id++) {
 		uint32_t flags = (data_id == array_length - 1 ? kOSSerializeEndCollection : 0);
 		if (*xml++ != (kOSSerializeString | data_size - 1 | flags)) {
-			ERROR("unexpected data: 0x%x != 0x%x at index %u",
+            ERROR("IOSurface: unexpected data: 0x%x != 0x%x at index %u",
 					xml[-1], kOSSerializeString | data_size - 1 | flags,
 					data_id);
 			goto fail;

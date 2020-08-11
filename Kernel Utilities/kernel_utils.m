@@ -44,7 +44,7 @@ int Kernel_strcmp(uint64_t kstr, const char* str) {
 uint64_t TaskSelfAddr() {
     uint64_t selfproc = proc_of_pid(getpid());
     if (selfproc == 0) {
-        fprintf(stderr, "[-] failed to find our task addr\n");
+        fprintf(stderr, "Kernel Utils: failed to find our task addr\n");
         return -1;
     }
     uint64_t addr = rk64(selfproc + off_task);
@@ -95,12 +95,12 @@ bool PatchHostPriv(mach_port_t host) {
     
     // change port host type
     uint32_t old = rk32(host_kaddr + 0x0);
-    printf("[-] Old host type: 0x%x\n", old);
+    printf("Kernel Utils: Old host type: 0x%x\n", old);
     
     wk32(host_kaddr + 0x0, IO_ACTIVE | IKOT_HOST_PRIV);
     
     uint32_t new = rk32(host_kaddr);
-    printf("[-] New host type: 0x%x\n", new);
+    printf("Kernel Utils: New host type: 0x%x\n", new);
     
     return ((IO_ACTIVE | IKOT_HOST_PRIV) == new) ? true : false;
 }
@@ -119,7 +119,7 @@ mach_port_t FakeHostPriv() {
     kern_return_t err;
     err = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &port);
     if (err != KERN_SUCCESS) {
-        printf("[-] failed to allocate port\n");
+        printf("Kernel Utils: failed to allocate port\n");
         return MACH_PORT_NULL;
     }
     // get a send right
@@ -144,7 +144,7 @@ mach_port_t FakeHostPriv() {
 
 uint64_t Kernel_alloc_wired(uint64_t size) {
     if (tfpzero == MACH_PORT_NULL) {
-        printf("[-] attempt to allocate kernel memory before any kernel memory write primitives available\n");
+        printf("Kernel Utils: Attempt to allocate kernel memory before any kernel memory write primitives available\n");
         sleep(3);
         return 0;
     }
@@ -153,25 +153,25 @@ uint64_t Kernel_alloc_wired(uint64_t size) {
     mach_vm_address_t addr = 0;
     mach_vm_size_t ksize = round_page_kernel(size);
     
-    printf("[*] vm_kernel_page_size: %lx\n", vm_kernel_page_size);
+    printf("Kernel Utils: vm_kernel_page_size: %lx\n", vm_kernel_page_size);
     
     err = mach_vm_allocate(tfpzero, &addr, ksize+0x4000, VM_FLAGS_ANYWHERE);
     if (err != KERN_SUCCESS) {
-        printf("[-] unable to allocate kernel memory via tfp0: %s %x\n", mach_error_string(err), err);
+        printf("Kernel Utils: unable to allocate kernel memory via tfp0: %s %x\n", mach_error_string(err), err);
         sleep(3);
         return 0;
     }
     
-    printf("[+] allocated address: %llx\n", addr);
+    printf("Kernel Utils: allocated address: %llx\n", addr);
     
     addr += 0x3fff;
     addr &= ~0x3fffull;
     
-    printf("[*] address to wire: %llx\n", addr);
+    printf("Kernel Utils: address to wire: %llx\n", addr);
     
     err = mach_vm_wire(FakeHostPriv(), tfpzero, addr, ksize, VM_PROT_READ|VM_PROT_WRITE);
     if (err != KERN_SUCCESS) {
-        printf("[-] unable to wire kernel memory via tfp0: %s %x\n", mach_error_string(err), err);
+        printf("Kernel Utils: unable to wire kernel memory via tfp0: %s %x\n", mach_error_string(err), err);
         sleep(3);
         return 0;
     }
@@ -281,7 +281,7 @@ uint64_t taskStruct_of_procName(char *nm) {
 uint64_t taskPortKaddr_of_pid(pid_t pid) {
     uint64_t proc = proc_of_pid(pid);
     if (!proc) {
-        printf("[-] Failed to find proc of pid %d\n", pid);
+        printf("Kernel Utils: Failed to find proc of pid %d\n", pid);
         return 0;
     }
     uint64_t task = rk64(proc + off_task);
@@ -294,7 +294,7 @@ uint64_t taskPortKaddr_of_pid(pid_t pid) {
 uint64_t taskPortKaddr_of_procName(char *nm) {
     uint64_t proc = proc_of_procName(nm);
     if (!proc) {
-        printf("[-] Failed to find proc of process %s\n", nm);
+        printf("Kernel Utils: Failed to find proc of process %s\n", nm);
         return 0;
     }
     uint64_t task = rk64(proc + off_task);
@@ -323,7 +323,7 @@ mach_port_t task_for_pid_in_kernel(pid_t pid) {
     // get the address of the ipc_port of our allocated port
     uint64_t selfproc = proc_of_pid(getpid());
     if (!selfproc) {
-        printf("[-] Failed to find our proc?\n");
+        printf("Kernel Utils: Failed to find our proc?\n");
         return MACH_PORT_NULL;
     }
     uint64_t selftask = rk64(selfproc + off_task);
@@ -353,12 +353,12 @@ uint64_t ZmFixAddr(uint64_t addr) {
         //printf("zm_range: 0x%llx - 0x%llx (read 0x%zx, exp 0x%zx)\n", zm_hdr.start, zm_hdr.end, r, sizeof(zm_hdr));
         
         if (r != sizeof(zm_hdr) || zm_hdr.start == 0 || zm_hdr.end == 0) {
-            printf("[-] kread of zone_map failed!\n");
+            printf("Kernel Utils: kread of zone_map failed!\n");
             return 1;
         }
         
         if (zm_hdr.end - zm_hdr.start > 0x100000000) {
-            printf("[-] zone_map is too big, sorry.\n");
+            printf("Kernel Utils: zone_map is too big, sorry.\n");
             return 1;
         }
     }
@@ -369,7 +369,7 @@ uint64_t ZmFixAddr(uint64_t addr) {
 }
 
 uint64_t grabKernelBase() {
-    printf("[i] Obtaining KASLR slide...\n");
+    printf("Obtaining KASLR slide...\n");
     
 #define slid_base  base+slide
     uint64_t base = 0xFFFFFFF007004000;
@@ -382,21 +382,21 @@ uint64_t grabKernelBase() {
             data = rk32(slid_base);
         }
         
-        printf("[*] Found 0xfeedfacf Mach-O header at 0x%llx, checking...\n", slid_base);
+        printf("Found 0xfeedfacf Mach-O header at 0x%llx, checking...\n", slid_base);
         
         char buf[0x120];
         for (uint64_t addr = slid_base; addr < slid_base + 0x2000; addr += 8 /* 64 bits / 8 bits / byte = 8 bytes */) {
             kread(addr, buf, 0x120); // read 0x120 bytes into a char buffer
             
             if (!strcmp(buf, "__text") && !strcmp(buf + 16, "__PRELINK_TEXT")) { // found it!
-                printf("\t[i] The Kernel base at 0x%llx\n", slid_base);
-                printf("\t[i] KASLR slide is 0x%x\n", slide);
-                printf("\t[i] Kernel header is 0x%x\n", rk32(slid_base));
+                printf("\t  The Kernel base at 0x%llx\n", slid_base);
+                printf("\t  KASLR slide is 0x%x\n", slide);
+                printf("\t  Kernel header is 0x%x\n", rk32(slid_base));
                 return slid_base;
             }
             data = 0;
         }
-        printf("\t[-] Could not find __text and __PRELINK_TEXT, trying again!\n");
+        printf("\tCould not find __text and __PRELINK_TEXT, trying again!\n");
     }
     return 0;
 }

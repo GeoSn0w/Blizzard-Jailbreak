@@ -16,17 +16,17 @@ mach_port_t PrepareUserClient(void) {
   io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOSurfaceRoot"));
 
   if (service == IO_OBJECT_NULL){
-    printf("[-] Kexecute: unable to find service.\n");
+    printf("Kernel Execute: unable to find service.\n");
     exit(EXIT_FAILURE);
   }
 
   err = IOServiceOpen(service, mach_task_self(), 0, &UserClient);
   if (err != KERN_SUCCESS){
-    printf("[-] Kexecute: unable to get user client connection.\n");
+    printf("Kernel Execute: unable to get user client connection.\n");
     exit(EXIT_FAILURE);
   }
 
-  printf("[+] Kexecute: got user client: 0x%x\n", UserClient);
+  printf("Kernel Execute: got user client: 0x%x\n", UserClient);
   return UserClient;
 }
 
@@ -57,10 +57,10 @@ void init_Kernel_Execute(void) {
 
     pthread_mutex_init(&kexecuteLock, NULL);
     if (UserClient){
-        printf("[+] Successfully initialized Kernel Execute Module! \n");
+        printf("Kernel Execute: Successfully initialized Kernel Execute Module! \n");
         return;
     } else {
-        printf("[-] Failed to initialize Kernel Execute Module! \n");
+        printf("Kernel Execute: Failed to initialize Kernel Execute Module! \n");
         return;
     }
 }
