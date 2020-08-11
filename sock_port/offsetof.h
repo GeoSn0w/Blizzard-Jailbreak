@@ -23,7 +23,7 @@ extern unsigned off_p_cputype;
 extern unsigned off_p_cpu_subtype;
 extern unsigned off_special;
 extern unsigned off_ipc_space_is_table;
-
+extern unsigned off_si_flags;
 extern unsigned off_ucred_cr_uid;
 extern unsigned off_ucred_cr_ruid;
 extern unsigned off_ucred_cr_gid;

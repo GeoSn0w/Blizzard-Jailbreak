@@ -20,6 +20,16 @@
 		82F17A2322DF4EF100231F8C /* exploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2122DF4EF100231F8C /* exploit.c */; };
 		82F17A2622DF4F1C00231F8C /* exploit_utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2422DF4F1C00231F8C /* exploit_utilities.c */; };
 		D613B71B24E217D90069CA9B /* BlizzardLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B71A24E217D90069CA9B /* BlizzardLog.m */; };
+		D613B72724E2A76A0069CA9B /* rootfs_remount.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B72424E2A76A0069CA9B /* rootfs_remount.c */; };
+		D613B72824E2A76A0069CA9B /* offsetfinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D613B72624E2A76A0069CA9B /* offsetfinder.cpp */; };
+		D613B73524E2A8AB0069CA9B /* snapshot_tools.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B73424E2A8AB0069CA9B /* snapshot_tools.c */; };
+		D613B74524E2B1C20069CA9B /* liboffsetfinder64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73B24E2B1530069CA9B /* liboffsetfinder64.a */; };
+		D613B74624E2B1E70069CA9B /* libimg4tool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73F24E2B1540069CA9B /* libimg4tool.a */; };
+		D613B74724E2B1E70069CA9B /* libmerged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73E24E2B1530069CA9B /* libmerged.a */; };
+		D613B74824E2B1E70069CA9B /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73C24E2B1530069CA9B /* libplist.a */; };
+		D613B74924E2B1E70069CA9B /* libplist++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73D24E2B1530069CA9B /* libplist++.a */; };
+		D613B74B24E2B2560069CA9B /* libcompression.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B74A24E2B2560069CA9B /* libcompression.tbd */; };
+		D613B74D24E2B2600069CA9B /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */; };
 		D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E424E1C7EA002E6756 /* patchfinder64.m */; };
 		D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E624E1C7F7002E6756 /* kexecute.c */; };
 		D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */; };
@@ -73,6 +83,26 @@
 		82F17A2822DF57B700231F8C /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = socket_free/IOKit.tbd; sourceTree = "<group>"; };
 		D613B71924E217D90069CA9B /* BlizzardLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardLog.h; sourceTree = "<group>"; };
 		D613B71A24E217D90069CA9B /* BlizzardLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardLog.m; sourceTree = "<group>"; };
+		D613B72424E2A76A0069CA9B /* rootfs_remount.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rootfs_remount.c; sourceTree = "<group>"; };
+		D613B72524E2A76A0069CA9B /* rootfs_remount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rootfs_remount.h; sourceTree = "<group>"; };
+		D613B72624E2A76A0069CA9B /* offsetfinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = offsetfinder.cpp; sourceTree = "<group>"; };
+		D613B72924E2A79F0069CA9B /* liboffsetfinder64.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = liboffsetfinder64.hpp; sourceTree = "<group>"; };
+		D613B72A24E2A7B70069CA9B /* liboffsetfinder64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboffsetfinder64.a; path = "../electra1131-master/electra1131/libs/liboffsetfinder64.a"; sourceTree = "<group>"; };
+		D613B72B24E2A7B70069CA9B /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplist.a; path = "../electra1131-master/electra1131/libs/libplist.a"; sourceTree = "<group>"; };
+		D613B72C24E2A7B70069CA9B /* libplist++.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libplist++.a"; path = "../electra1131-master/electra1131/libs/libplist++.a"; sourceTree = "<group>"; };
+		D613B72D24E2A7B70069CA9B /* libmerged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmerged.a; path = "../electra1131-master/electra1131/libs/libmerged.a"; sourceTree = "<group>"; };
+		D613B72E24E2A7B70069CA9B /* libimg4tool.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libimg4tool.a; path = "../electra1131-master/electra1131/libs/libimg4tool.a"; sourceTree = "<group>"; };
+		D613B73424E2A8AB0069CA9B /* snapshot_tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot_tools.c; sourceTree = "<group>"; };
+		D613B73624E2A8B00069CA9B /* snapshot_tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot_tools.h; sourceTree = "<group>"; };
+		D613B73724E2A8C40069CA9B /* IOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKit.h; sourceTree = "<group>"; };
+		D613B73824E2A99B0069CA9B /* system_reboot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = system_reboot.h; sourceTree = "<group>"; };
+		D613B73B24E2B1530069CA9B /* liboffsetfinder64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liboffsetfinder64.a; sourceTree = "<group>"; };
+		D613B73C24E2B1530069CA9B /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplist.a; sourceTree = "<group>"; };
+		D613B73D24E2B1530069CA9B /* libplist++.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist++.a"; sourceTree = "<group>"; };
+		D613B73E24E2B1530069CA9B /* libmerged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmerged.a; sourceTree = "<group>"; };
+		D613B73F24E2B1540069CA9B /* libimg4tool.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimg4tool.a; sourceTree = "<group>"; };
+		D613B74A24E2B2560069CA9B /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
+		D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
 		D62CA1E324E1C7EA002E6756 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		D62CA1E424E1C7EA002E6756 /* patchfinder64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = patchfinder64.m; sourceTree = "<group>"; };
 		D62CA1E624E1C7F7002E6756 /* kexecute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kexecute.c; sourceTree = "<group>"; };
@@ -93,6 +123,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D613B74D24E2B2600069CA9B /* libMobileGestalt.tbd in Frameworks */,
+				D613B74B24E2B2560069CA9B /* libcompression.tbd in Frameworks */,
+				D613B74624E2B1E70069CA9B /* libimg4tool.a in Frameworks */,
+				D613B74724E2B1E70069CA9B /* libmerged.a in Frameworks */,
+				D613B74824E2B1E70069CA9B /* libplist.a in Frameworks */,
+				D613B74924E2B1E70069CA9B /* libplist++.a in Frameworks */,
+				D613B74524E2B1C20069CA9B /* liboffsetfinder64.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +153,9 @@
 		82F179E322DF4ED700231F8C = {
 			isa = PBXGroup;
 			children = (
+				D613B73A24E2B13E0069CA9B /* Helper Libraries */,
+				D613B71D24E2A68D0069CA9B /* APFS Utilities */,
+				D613B71C24E2A6690069CA9B /* AMFI Utilities */,
 				D62CA1DF24E1C6FB002E6756 /* Kernel Utilities */,
 				D62CA1DB24E1C660002E6756 /* PatchFinder */,
 				82F179EE22DF4ED700231F8C /* sock_port */,
@@ -177,10 +217,50 @@
 		82F17A2722DF57B700231F8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */,
+				D613B74A24E2B2560069CA9B /* libcompression.tbd */,
+				D613B72E24E2A7B70069CA9B /* libimg4tool.a */,
+				D613B72D24E2A7B70069CA9B /* libmerged.a */,
+				D613B72A24E2A7B70069CA9B /* liboffsetfinder64.a */,
+				D613B72B24E2A7B70069CA9B /* libplist.a */,
+				D613B72C24E2A7B70069CA9B /* libplist++.a */,
 				D62CA20A24E1D95F002E6756 /* kerneldec */,
 				82F17A2822DF57B700231F8C /* IOKit.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D613B71C24E2A6690069CA9B /* AMFI Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "AMFI Utilities";
+			sourceTree = "<group>";
+		};
+		D613B71D24E2A68D0069CA9B /* APFS Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D613B73724E2A8C40069CA9B /* IOKit.h */,
+				D613B72924E2A79F0069CA9B /* liboffsetfinder64.hpp */,
+				D613B72624E2A76A0069CA9B /* offsetfinder.cpp */,
+				D613B72424E2A76A0069CA9B /* rootfs_remount.c */,
+				D613B72524E2A76A0069CA9B /* rootfs_remount.h */,
+				D613B73624E2A8B00069CA9B /* snapshot_tools.h */,
+				D613B73424E2A8AB0069CA9B /* snapshot_tools.c */,
+			);
+			path = "APFS Utilities";
+			sourceTree = "<group>";
+		};
+		D613B73A24E2B13E0069CA9B /* Helper Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D613B73F24E2B1540069CA9B /* libimg4tool.a */,
+				D613B73E24E2B1530069CA9B /* libmerged.a */,
+				D613B73B24E2B1530069CA9B /* liboffsetfinder64.a */,
+				D613B73C24E2B1530069CA9B /* libplist.a */,
+				D613B73D24E2B1530069CA9B /* libplist++.a */,
+			);
+			path = "Helper Libraries";
 			sourceTree = "<group>";
 		};
 		D62CA1DB24E1C660002E6756 /* PatchFinder */ = {
@@ -195,6 +275,7 @@
 		D62CA1DF24E1C6FB002E6756 /* Kernel Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D613B73824E2A99B0069CA9B /* system_reboot.h */,
 				D62CA1E924E1C7FF002E6756 /* kernel_utils.h */,
 				D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */,
 				D62CA1E624E1C7F7002E6756 /* kexecute.c */,
@@ -360,6 +441,8 @@
 				D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */,
 				D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */,
 				82F179FF22DF4ED700231F8C /* main.m in Sources */,
+				D613B72824E2A76A0069CA9B /* offsetfinder.cpp in Sources */,
+				D613B73524E2A8AB0069CA9B /* snapshot_tools.c in Sources */,
 				D613B71B24E217D90069CA9B /* BlizzardLog.m in Sources */,
 				D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */,
 				82F179F122DF4ED700231F8C /* AppDelegate.m in Sources */,
@@ -368,6 +451,7 @@
 				D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */,
 				8288501522E07C15005D10FC /* offsets.m in Sources */,
 				8288501222E07303005D10FC /* kernel_memory.c in Sources */,
+				D613B72724E2A76A0069CA9B /* rootfs_remount.c in Sources */,
 				D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */,
 				D63EDAC124E1989F009B305D /* blizzardJailbreak.m in Sources */,
 			);
@@ -541,6 +625,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U7CBM293CM;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/sock_port/include\"";
 				INFOPLIST_FILE = "$(SRCROOT)/Blizzard Jailbreak/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -548,6 +633,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/sock_port",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
@@ -572,6 +667,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U7CBM293CM;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/sock_port/include\"";
 				INFOPLIST_FILE = "$(SRCROOT)/Blizzard Jailbreak/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -579,6 +675,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/sock_port",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
+					"$(PROJECT_DIR)/Helper\\ Libraries",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (

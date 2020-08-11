@@ -59,16 +59,7 @@ boyermoore_horspool_memmem(const unsigned char* haystack, size_t hlen,
         for (scan = last; haystack[scan] == needle[scan]; scan = scan - 1)
             if (scan == 0) /* If the first byte matches, we've found it. */
                 return (void *)haystack;
-        
-        /* otherwise, we need to skip some bytes and start again.
-         Note that here we are getting the skip value based on the last byte
-         of needle, no matter where we didn't match. So if needle is: "abcd"
-         then we are skipping based on 'd' and that value will be 4, and
-         for "abcdd" we again skip on 'd' but the value will be only 1.
-         The alternative of pretending that the mismatched character was
-         the last character is slower in the normal case (E.g. finding
-         "abcd" in "...azcd..." gives 4 by using 'd' but only
-         4-2==2 using 'z'. */
+    
         hlen     -= bad_char_skip[haystack[last]];
         haystack += bad_char_skip[haystack[last]];
     }
@@ -447,7 +438,7 @@ static void *kernel_mh = 0;
 static addr_t kernel_delta = 0;
 
 int
-init_kernel(addr_t base, const char *filename)
+initializePatchFinderWithBase(addr_t base, const char *filename)
 {
     size_t rv;
     uint8_t buf[0x4000];
@@ -604,7 +595,7 @@ init_kernel(addr_t base, const char *filename)
 }
 
 void
-term_kernel(void)
+terminatePatchFinder(void)
 {
     free(kernel);
 }

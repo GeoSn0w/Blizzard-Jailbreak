@@ -1,10 +1,9 @@
 #ifndef PATCHFINDER64_H_
 #define PATCHFINDER64_H_
 
-int init_kernel(uint64_t base, const char *filename);
-void term_kernel(void);
+int initializePatchFinderWithBase(uint64_t base, const char *filename);
+void terminatePatchFinder(void);
 
-// Fun part
 uint64_t find_allproc(void);
 uint64_t find_add_x0_x0_0x40_ret(void);
 uint64_t find_copyout(void);

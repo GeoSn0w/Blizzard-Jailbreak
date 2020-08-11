@@ -37,7 +37,7 @@ int exploit_init(){
             return 2;
         }
         kernel_slide = (uint32_t)(KernelBase - 0xFFFFFFF007004000);
-        int ret = init_kernel(KernelBase, NULL); // patchfinder
+        int ret = initializePatchFinderWithBase(KernelBase, NULL); // patchfinder
         if (ret) {
             printf("Failed to initialize patchfinder\n");
             return 3;
@@ -47,9 +47,9 @@ int exploit_init(){
         rootifyOurselves();
         defaultCredentials = escapeSandboxForProcess(getpid());
         restoreProcessCredentials(defaultCredentials, getpid());
-        init_Kernel_Execute();
-        term_Kernel_Execute();
-        term_kernel();
+        initializeKernelExecute();
+        terminateKernelExecute();
+        terminatePatchFinder();
     
         return 0;
     } else {

@@ -52,7 +52,7 @@ unsigned off_csb_signer_type = 0xA0;     // cs_blob::csb_signer_type
 unsigned off_csb_platform_binary = 0xA4; // cs_blob::csb_platform_binary
 unsigned off_csb_platform_path = 0xA8;   // cs_blob::csb_platform_path
 unsigned off_csb_cd = 0x80;              // cs_blob::csb_cd
-
+unsigned off_si_flags = 0x10;
 unsigned off_t_flags = 0x3a0; // task::t_flags
 
 unsigned off_v_mount = 0xd8;             // vnode::v_mount

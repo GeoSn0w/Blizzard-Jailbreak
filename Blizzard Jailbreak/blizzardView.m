@@ -21,10 +21,11 @@
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n");
 }
 - (IBAction)blizzardInit:(id)sender {
+    [self performSegueWithIdentifier:@"vc" sender:self];
     _blizzardInit.enabled = NO;
     [_blizzardInit setTitle:@"JAILBREAKING..." forState:UIControlStateDisabled];
-    [self performSegueWithIdentifier:@"vc" sender:self];
     exploit_init();
+    [_blizzardInit setTitle:@"JAILBROKEN" forState:UIControlStateDisabled];
 }
 
 @end

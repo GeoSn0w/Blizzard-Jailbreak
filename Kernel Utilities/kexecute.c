@@ -1,4 +1,3 @@
-
 #import <pthread.h>
 #import "kernel_utils.h"
 #import "kexecute.h"
@@ -65,7 +64,7 @@ void init_Kernel_Execute(void) {
     }
 }
 
-void term_Kernel_Execute(void) {
+void terminateKernelExecute(void) {
     if (!UserClient) return;
     
     wk64(IOSurfaceRootUserClient_Port + off_ip_kobject, IOSurfaceRootUserClient_Addr);
@@ -73,7 +72,7 @@ void term_Kernel_Execute(void) {
     kfree(FakeClient, fake_Kernel_alloc_size);
 }
 
-uint64_t Kernel_Execute(uint64_t addr, uint64_t x0, uint64_t x1, uint64_t x2, uint64_t x3, uint64_t x4, uint64_t x5, uint64_t x6) {
+uint64_t kexecute(uint64_t addr, uint64_t x0, uint64_t x1, uint64_t x2, uint64_t x3, uint64_t x4, uint64_t x5, uint64_t x6) {
     
     if (kernel_exec) {
         return kernel_exec(addr, 7, x0, x1, x2, x3, x4, x5, x6);

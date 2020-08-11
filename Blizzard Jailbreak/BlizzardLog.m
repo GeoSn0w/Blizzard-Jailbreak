@@ -14,6 +14,7 @@
 
 @implementation BlizzardLog
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self redirectSTD:STDOUT_FILENO];
@@ -21,6 +22,9 @@
     [self.uiLogView scrollRangeToVisible:lastLine];
 }
 
+- (IBAction)dismissLogWindow:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 -(void)textViewDidChange:(UITextView *)textView
 {
