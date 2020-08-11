@@ -20,7 +20,7 @@
 		82F17A2322DF4EF100231F8C /* exploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2122DF4EF100231F8C /* exploit.c */; };
 		82F17A2622DF4F1C00231F8C /* exploit_utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 82F17A2422DF4F1C00231F8C /* exploit_utilities.c */; };
 		D613B71B24E217D90069CA9B /* BlizzardLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B71A24E217D90069CA9B /* BlizzardLog.m */; };
-		D613B72724E2A76A0069CA9B /* rootfs_remount.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B72424E2A76A0069CA9B /* rootfs_remount.c */; };
+		D613B72724E2A76A0069CA9B /* rootfs_remount.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B72424E2A76A0069CA9B /* rootfs_remount.m */; };
 		D613B72824E2A76A0069CA9B /* offsetfinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D613B72624E2A76A0069CA9B /* offsetfinder.cpp */; };
 		D613B73524E2A8AB0069CA9B /* snapshot_tools.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B73424E2A8AB0069CA9B /* snapshot_tools.c */; };
 		D613B74524E2B1C20069CA9B /* liboffsetfinder64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73B24E2B1530069CA9B /* liboffsetfinder64.a */; };
@@ -30,6 +30,14 @@
 		D613B74924E2B1E70069CA9B /* libplist++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B73D24E2B1530069CA9B /* libplist++.a */; };
 		D613B74B24E2B2560069CA9B /* libcompression.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B74A24E2B2560069CA9B /* libcompression.tbd */; };
 		D613B74D24E2B2600069CA9B /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */; };
+		D613B75024E2CD5E0069CA9B /* BlizzardSpawnerTools.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B74E24E2CD5E0069CA9B /* BlizzardSpawnerTools.c */; };
+		D613B75724E2E8300069CA9B /* amfi_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B75324E2E8300069CA9B /* amfi_utils.m */; };
+		D613B75824E2E8300069CA9B /* amfid_tools.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B75424E2E8300069CA9B /* amfid_tools.m */; };
+		D613B75924E2E8300069CA9B /* amfid_mem.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B75624E2E8300069CA9B /* amfid_mem.m */; };
+		D613B75C24E2E8590069CA9B /* amfid.m in Sources */ = {isa = PBXBuildFile; fileRef = D613B75B24E2E8580069CA9B /* amfid.m */; };
+		D613B76024E2EEFD0069CA9B /* osobject.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B75E24E2EEFD0069CA9B /* osobject.c */; };
+		D613B76624E2F2D30069CA9B /* kernSymbolication.c in Sources */ = {isa = PBXBuildFile; fileRef = D613B76424E2F2D30069CA9B /* kernSymbolication.c */; };
+		D613B78224E2F9980069CA9B /* lzssdec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D613B78024E2F9980069CA9B /* lzssdec.cpp */; };
 		D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E424E1C7EA002E6756 /* patchfinder64.m */; };
 		D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1E624E1C7F7002E6756 /* kexecute.c */; };
 		D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */; };
@@ -83,7 +91,7 @@
 		82F17A2822DF57B700231F8C /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = socket_free/IOKit.tbd; sourceTree = "<group>"; };
 		D613B71924E217D90069CA9B /* BlizzardLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardLog.h; sourceTree = "<group>"; };
 		D613B71A24E217D90069CA9B /* BlizzardLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardLog.m; sourceTree = "<group>"; };
-		D613B72424E2A76A0069CA9B /* rootfs_remount.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rootfs_remount.c; sourceTree = "<group>"; };
+		D613B72424E2A76A0069CA9B /* rootfs_remount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rootfs_remount.m; sourceTree = "<group>"; };
 		D613B72524E2A76A0069CA9B /* rootfs_remount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rootfs_remount.h; sourceTree = "<group>"; };
 		D613B72624E2A76A0069CA9B /* offsetfinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = offsetfinder.cpp; sourceTree = "<group>"; };
 		D613B72924E2A79F0069CA9B /* liboffsetfinder64.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = liboffsetfinder64.hpp; sourceTree = "<group>"; };
@@ -103,6 +111,23 @@
 		D613B73F24E2B1540069CA9B /* libimg4tool.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libimg4tool.a; sourceTree = "<group>"; };
 		D613B74A24E2B2560069CA9B /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
+		D613B74E24E2CD5E0069CA9B /* BlizzardSpawnerTools.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = BlizzardSpawnerTools.c; sourceTree = "<group>"; };
+		D613B74F24E2CD5E0069CA9B /* BlizzardSpawnerTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardSpawnerTools.h; sourceTree = "<group>"; };
+		D613B75124E2E82F0069CA9B /* amfid_tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amfid_tools.h; sourceTree = "<group>"; };
+		D613B75224E2E8300069CA9B /* amfi_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amfi_utils.h; sourceTree = "<group>"; };
+		D613B75324E2E8300069CA9B /* amfi_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amfi_utils.m; sourceTree = "<group>"; };
+		D613B75424E2E8300069CA9B /* amfid_tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amfid_tools.m; sourceTree = "<group>"; };
+		D613B75524E2E8300069CA9B /* amfid_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amfid_mem.h; sourceTree = "<group>"; };
+		D613B75624E2E8300069CA9B /* amfid_mem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amfid_mem.m; sourceTree = "<group>"; };
+		D613B75A24E2E8580069CA9B /* amfid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amfid.h; sourceTree = "<group>"; };
+		D613B75B24E2E8580069CA9B /* amfid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amfid.m; sourceTree = "<group>"; };
+		D613B75D24E2E8690069CA9B /* cs_blob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cs_blob.h; sourceTree = "<group>"; };
+		D613B75E24E2EEFD0069CA9B /* osobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osobject.c; sourceTree = "<group>"; };
+		D613B75F24E2EEFD0069CA9B /* osobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osobject.h; sourceTree = "<group>"; };
+		D613B76424E2F2D30069CA9B /* kernSymbolication.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kernSymbolication.c; sourceTree = "<group>"; };
+		D613B76524E2F2D30069CA9B /* kernSymbolication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kernSymbolication.h; sourceTree = "<group>"; };
+		D613B78024E2F9980069CA9B /* lzssdec.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lzssdec.cpp; sourceTree = "<group>"; };
+		D613B78124E2F9980069CA9B /* lzssdec.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lzssdec.hpp; sourceTree = "<group>"; };
 		D62CA1E324E1C7EA002E6756 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		D62CA1E424E1C7EA002E6756 /* patchfinder64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = patchfinder64.m; sourceTree = "<group>"; };
 		D62CA1E624E1C7F7002E6756 /* kexecute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kexecute.c; sourceTree = "<group>"; };
@@ -233,6 +258,17 @@
 		D613B71C24E2A6690069CA9B /* AMFI Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D613B75E24E2EEFD0069CA9B /* osobject.c */,
+				D613B75F24E2EEFD0069CA9B /* osobject.h */,
+				D613B75D24E2E8690069CA9B /* cs_blob.h */,
+				D613B75224E2E8300069CA9B /* amfi_utils.h */,
+				D613B75324E2E8300069CA9B /* amfi_utils.m */,
+				D613B75524E2E8300069CA9B /* amfid_mem.h */,
+				D613B75624E2E8300069CA9B /* amfid_mem.m */,
+				D613B75124E2E82F0069CA9B /* amfid_tools.h */,
+				D613B75424E2E8300069CA9B /* amfid_tools.m */,
+				D613B75A24E2E8580069CA9B /* amfid.h */,
+				D613B75B24E2E8580069CA9B /* amfid.m */,
 			);
 			path = "AMFI Utilities";
 			sourceTree = "<group>";
@@ -243,7 +279,7 @@
 				D613B73724E2A8C40069CA9B /* IOKit.h */,
 				D613B72924E2A79F0069CA9B /* liboffsetfinder64.hpp */,
 				D613B72624E2A76A0069CA9B /* offsetfinder.cpp */,
-				D613B72424E2A76A0069CA9B /* rootfs_remount.c */,
+				D613B72424E2A76A0069CA9B /* rootfs_remount.m */,
 				D613B72524E2A76A0069CA9B /* rootfs_remount.h */,
 				D613B73624E2A8B00069CA9B /* snapshot_tools.h */,
 				D613B73424E2A8AB0069CA9B /* snapshot_tools.c */,
@@ -280,6 +316,10 @@
 				D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */,
 				D62CA1E624E1C7F7002E6756 /* kexecute.c */,
 				D62CA1E724E1C7F7002E6756 /* kexecute.h */,
+				D613B76424E2F2D30069CA9B /* kernSymbolication.c */,
+				D613B76524E2F2D30069CA9B /* kernSymbolication.h */,
+				D613B78124E2F9980069CA9B /* lzssdec.hpp */,
+				D613B78024E2F9980069CA9B /* lzssdec.cpp */,
 			);
 			path = "Kernel Utilities";
 			sourceTree = "<group>";
@@ -300,6 +340,8 @@
 				D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */,
 				D613B71924E217D90069CA9B /* BlizzardLog.h */,
 				D613B71A24E217D90069CA9B /* BlizzardLog.m */,
+				D613B74E24E2CD5E0069CA9B /* BlizzardSpawnerTools.c */,
+				D613B74F24E2CD5E0069CA9B /* BlizzardSpawnerTools.h */,
 			);
 			path = "Blizzard Jailbreak";
 			sourceTree = "<group>";
@@ -438,20 +480,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				82F17A2622DF4F1C00231F8C /* exploit_utilities.c in Sources */,
+				D613B75724E2E8300069CA9B /* amfi_utils.m in Sources */,
 				D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */,
 				D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */,
+				D613B78224E2F9980069CA9B /* lzssdec.cpp in Sources */,
 				82F179FF22DF4ED700231F8C /* main.m in Sources */,
+				D613B75824E2E8300069CA9B /* amfid_tools.m in Sources */,
 				D613B72824E2A76A0069CA9B /* offsetfinder.cpp in Sources */,
 				D613B73524E2A8AB0069CA9B /* snapshot_tools.c in Sources */,
+				D613B75024E2CD5E0069CA9B /* BlizzardSpawnerTools.c in Sources */,
 				D613B71B24E217D90069CA9B /* BlizzardLog.m in Sources */,
 				D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */,
 				82F179F122DF4ED700231F8C /* AppDelegate.m in Sources */,
 				82F17A2322DF4EF100231F8C /* exploit.c in Sources */,
+				D613B75C24E2E8590069CA9B /* amfid.m in Sources */,
 				82E9B71522E24BAD0016AA39 /* iosurface.c in Sources */,
+				D613B75924E2E8300069CA9B /* amfid_mem.m in Sources */,
 				D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */,
+				D613B76624E2F2D30069CA9B /* kernSymbolication.c in Sources */,
+				D613B76024E2EEFD0069CA9B /* osobject.c in Sources */,
 				8288501522E07C15005D10FC /* offsets.m in Sources */,
 				8288501222E07303005D10FC /* kernel_memory.c in Sources */,
-				D613B72724E2A76A0069CA9B /* rootfs_remount.c in Sources */,
+				D613B72724E2A76A0069CA9B /* rootfs_remount.m in Sources */,
 				D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */,
 				D63EDAC124E1989F009B305D /* blizzardJailbreak.m in Sources */,
 			);

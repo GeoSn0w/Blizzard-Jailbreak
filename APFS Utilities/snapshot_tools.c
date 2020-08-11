@@ -8,11 +8,13 @@
 #import <signal.h>
 #import <sys/attr.h>
 #include "snapshot_tools.h"
+#include "../Blizzard Jailbreak/BlizzardSpawnerTools.h"
+#include "../Blizzard Jailbreak/blizzardJailbreak.h"
 
 int list_snapshots(const char *vol){
     int dirfd = open(vol, O_RDONLY, 0);
     if (dirfd < 0) {
-        perror("List Snapshot: ERROR: get_dirfd");
+        printf("List Snapshots: get_dirfd\n");
         return -1;
     }
     struct attrlist alist = { 0 };
@@ -20,10 +22,9 @@ int list_snapshots(const char *vol){
     alist.commonattr = ATTR_BULK_REQUIRED;
     int count = fs_snapshot_list(dirfd, &alist, &abuf[0], sizeof (abuf), 0);
     if (count < 0) {
-        perror("List Snapshot: fs_snapshot_list");
+        printf("List Snapshots: fs_snapshot_list\n");
         return -1;
     }
-    
     char *p = &abuf[0];
     for (int i = 0; i < count; i++) {
         char *field = p;
@@ -41,23 +42,19 @@ int list_snapshots(const char *vol){
         
         p += len;
     }
-    
     return (0);
 }
 
 char *copyBootHash() {
     io_registry_entry_t chosen = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen");
-    
     unsigned char buf[1024];
     uint32_t size = 1024;
     char *hash;
-    
     if (chosen && chosen != -1) {
         kern_return_t ret = IORegistryEntryGetProperty(chosen, "boot-manifest-hash", (char*)buf, &size);
         IOObjectRelease(chosen);
-        
         if (ret) {
-            printf("List Snapshot: ERROR: Unable to read boot-manifest-hash\n");
+            printf("List Snapshots: Unable to read boot-manifest-hash\n");
             hash = NULL;
         }
         else {
@@ -69,12 +66,12 @@ char *copyBootHash() {
                 unsigned char ch = buf[i];
                 sprintf(result + 2 * i++, "%02X", ch);
             }
-            printf("List Snapshot: Hash: %s\n", result);
+            printf("List Snapshots: Hash: %s\n", result);
             hash = strdup(result);
         }
     }
     else {
-        printf("List Snapshot: ERROR: Unable to get IODeviceTree:/chosen port\n");
+        printf("List Snapshots: Unable to get IODeviceTree:/chosen port\n");
         hash = NULL;
     }
     return hash;
@@ -84,24 +81,23 @@ char *find_system_snapshot() {
     const char *hash = copyBootHash();
     size_t len = strlen(hash);
     char *str = (char*)malloc(len + 29);
-    memset(str, 0, len + 29); //fill it up with zeros?
+    memset(str, 0, len + 29);
     if (!hash) return 0;
     sprintf(str, "com.apple.os.update-%s", hash);
-    printf("List Snapshot: ERROR: System snapshot: %s\n", str);
+    printf("List Snapshots: System snapshot: %s\n", str);
     return str;
 }
 
-int snapRenameAtPath(const char *vol, const char *snap, const char *nw) {
+int do_rename(const char *vol, const char *snap, const char *nw) {
     int dirfd = open(vol, O_RDONLY);
     if (dirfd < 0) {
-        perror("open");
+        printf("List Snapshots: open\n");
         return -1;
     }
-    
     int ret = fs_snapshot_rename(dirfd, snap, nw, 0);
     close(dirfd);
     if (ret != 0)
-        perror("fs_snapshot_rename");
+        perror("List Snapshots: fs_snapshot_rename\n");
     return (ret);
 }
 
@@ -111,24 +107,21 @@ typedef struct val_attrs {
     attrreference_t   name_info;
 } val_attrs_t;
 
-int snapshot_check(const char *vol, const char *name)
-{
+int snapshot_check(const char *vol, const char *name){
     struct attrlist attr_list = { 0 };
-    
     attr_list.commonattr = ATTR_BULK_REQUIRED;
-    
     char *buf = (char*)calloc(2048, sizeof(char));
     int retcount;
     int fd = open(vol, O_RDONLY, 0);
     while ((retcount = fs_snapshot_list(fd, &attr_list, buf, 2048, 0))>0) {
         char *bufref = buf;
-        
         for (int i=0; i<retcount; i++) {
             val_attrs_t *entry = (val_attrs_t *)bufref;
             if (entry->returned.commonattr & ATTR_CMN_NAME) {
                 printf("%s\n", (char*)(&entry->name_info) + entry->name_info.attr_dataoffset);
-                if (strstr((char*)(&entry->name_info) + entry->name_info.attr_dataoffset, name))
+                if (strstr((char*)(&entry->name_info) + entry->name_info.attr_dataoffset, name)){
                     return 1;
+                }
             }
             bufref += entry->length;
         }
@@ -137,21 +130,18 @@ int snapshot_check(const char *vol, const char *name)
     close(fd);
     
     if (retcount < 0) {
-        perror("fs_snapshot_list");
+        printf("List Snapshots: fs_snapshot_list\n");
         return -1;
     }
-    
     return 0;
 }
 
 int mountSnapshot(const char *vol, const char *name, const char *dir) {
-    int pd = launchSuspended("/sbin/mount_apfs", "-s", (char *)name, (char *)vol, (char *)dir, NULL, NULL, NULL);
-    
-    borrowCredsFromPid(pd, 0);
-    kill(pd, SIGCONT);
-    
+    int proces_pid;
+    proces_pid = launchProcessFrozen("/sbin/mount_apfs", "-s", (char *)name, (char *)vol, (char *)dir, NULL, NULL, NULL);
+    copyPIDCredentials(proces_pid, 0);
+    kill(proces_pid, SIGCONT);
     int a;
-    if (pd != -1) waitpid(pd, &a, 0);
-    
+    if (proces_pid != -1) waitpid(proces_pid, &a, 0);
     return WEXITSTATUS(a);
 }

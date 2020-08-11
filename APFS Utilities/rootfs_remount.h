@@ -19,10 +19,9 @@ int file_exists(const char *filename);
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-bool offsetizeRN(uint64_t slide);
-int systemRemountFS(uint64_t slide, uint64_t kern_proc, uint64_t our_proc, int snapshot_success);
-    
+extern int shouldReboot;
+int remountRootFS(void);
+int unjailbreakBlizzard(void);
 #ifdef __cplusplus
 }
 #endif

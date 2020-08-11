@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BlizzardLog : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *dismissLog;
 @property (weak, nonatomic) IBOutlet UITextView *uiLogView;
++ (instancetype)BlizzLogger;
+- (void)displaySnapshotNotice;
+- (void)customizeBtnAtUI;
 @end
 
 NS_ASSUME_NONNULL_END

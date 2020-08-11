@@ -6,21 +6,13 @@
 #import "kexecute.h"
 #include "../sock_port/kernel_memory.h"
 #include <stdbool.h>
+#include <spawn.h>
+#import <Foundation/Foundation.h>
 
 static mach_port_t tfpzero;
 
 void init_kernel_utils(mach_port_t tfp0) {
     tfpzero = tfp0;
-}
-
-uint64_t Kernel_alloc(vm_size_t size) {
-    mach_vm_address_t address = 0;
-    mach_vm_allocate(tfpzero, (mach_vm_address_t *)&address, size, VM_FLAGS_ANYWHERE);
-    return address;
-}
-
-void Kernel_free(mach_vm_address_t address, vm_size_t size) {
-    mach_vm_deallocate(tfpzero, address, size);
 }
 
 int Kernel_strcmp(uint64_t kstr, const char* str) {
@@ -222,11 +214,13 @@ void MakePortFakeTaskPort(mach_port_t port, uint64_t task_kaddr) {
     convertPortToTaskPort(port, IPCSpaceKernel(), task_kaddr);
 }
 
-uint64_t proc_of_pid(pid_t pid) {
-    uint64_t proc = rk64(find_allproc()), pd;
-    while (proc) { //iterate over all processes till we find the one we're looking for
-        pd = rk32(proc + off_p_pid);
-        if (pd == pid) return proc;
+uint64_t proc_of_pid(pid_t proc_pid) {
+    uint64_t proc = rk64(Find_allproc());
+    while (proc) {
+        uint32_t pid = (uint32_t)rk32(proc + off_p_pid);
+        if (pid == proc_pid){
+            return proc;
+        }
         proc = rk64(proc);
     }
     
@@ -234,7 +228,7 @@ uint64_t proc_of_pid(pid_t pid) {
 }
 
 uint64_t proc_of_procName(char *nm) {
-    uint64_t proc = rk64(find_allproc());
+    uint64_t proc = rk64(Find_allproc());
     char name[40] = {0};
     while (proc) {
         kread(proc + off_p_comm, name, 40); //read 20 bytes off the process's name and compare
@@ -245,7 +239,7 @@ uint64_t proc_of_procName(char *nm) {
 }
 
 unsigned int pid_of_procName(char *nm) {
-    uint64_t proc = rk64(find_allproc());
+    uint64_t proc = rk64(Find_allproc());
     char name[40] = {0};
     while (proc) {
         kread(proc + off_p_comm, name, 40);
@@ -347,7 +341,7 @@ uint64_t ZmFixAddr(uint64_t addr) {
     
     if (zm_hdr.start == 0) {
         // xxx rk64(0) ?!
-        uint64_t zone_map = rk64(find_zone_map_ref());
+        uint64_t zone_map = rk64(Find_zone_map_ref());
         // hdr is at offset 0x10, mutexes at start
         size_t r = kread(zone_map + 0x10, &zm_hdr, sizeof(zm_hdr));
         //printf("zm_range: 0x%llx - 0x%llx (read 0x%zx, exp 0x%zx)\n", zm_hdr.start, zm_hdr.end, r, sizeof(zm_hdr));
@@ -400,4 +394,3 @@ uint64_t grabKernelBase() {
     }
     return 0;
 }
-
