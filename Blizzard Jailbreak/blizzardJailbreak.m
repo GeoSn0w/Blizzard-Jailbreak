@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <mach/mach.h>
 #include <sys/mman.h>
+#include <spawn.h>
 #include "../sock_port/kernel_memory.h"
 #include "../sock_port/offsetof.h"
 #include "../sock_port/offsets.h"
@@ -23,7 +24,10 @@
 #include "../APFS Utilities/rootfs_remount.h"
 #include "../APFS Utilities/snapshot_tools.h"
 #include "../Kernel Utilities/kernSymbolication.h"
+#include "../AMFI Utilities/amfi_utils.h"
 
+#define BlizzardJailbreakPath(obj) strdup([[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@obj] UTF8String])
+int APFS_SNAPSHOT_EXISTS = 1;
 
 mach_port_t tfp0 = 0;
 uint64_t KernelBase;
@@ -55,14 +59,13 @@ int exploit_init(){
             return 2;
         }
         kernel_slide = (uint32_t)(KernelBase - 0xFFFFFFF007004000);
-        prepareKernelForPatchFinder();
-        /*
-        int ret = initializePatchFinderWithBase(KernelBase, NULL); // patchfinder
-        if (ret) {
+
+        int ret = prepareKernelForPatchFinder(); // patchfinder
+        if (ret != 0) {
             printf("Failed to initialize patchfinder\n");
             return 3;
         }
-         */
+    
         printf("Initialized patchfinder\n");
         ourProc = findOurOwnProcess();
         rootifyOurselves();
@@ -198,10 +201,10 @@ int remountFileSystem(){
     int returnValue = remountRootFS();
 
     if (returnValue == 0) {
-        printf("Remount ROOT FS: Successfully remounted!\n");
+        printf("ROOT FS REMOUNT: Successfully remounted!\n");
         return 0;
     } else {
-        printf("Remount ROOT FS: Failed to Remount!\n");
+        printf("ROOT FS REMOUNT: Failed to Remount!\n");
         return -1;
     }
 }
@@ -222,31 +225,62 @@ int setcsflags(pid_t pid) {
     }
 }
 
-int prepareKernelForPatchFinder(){
-    NSString *newPath;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd.MM.YY:HH.mm.ss"];
-    
-    NSString *docs = [[[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
-    mkdir(strdup([docs UTF8String]), 0777);
-    newPath = [docs stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_kernelcache", [formatter stringFromDate:[NSDate date]]]];
-    
-    printf("[*] copying to %s\n", [newPath UTF8String]);
-    
-    [fileManager copyItemAtPath:@"/System/Library/Caches/com.apple.kernelcaches/kernelcache" toPath:newPath error:&error];
-    if (error) {
-        printf("[-] Failed to copy kernelcache with error: %s\n", [[error localizedDescription] UTF8String]);
-        return 4;
-    }
-    
-    // init
-    if (decompressKernelCache(strdup([newPath UTF8String]))) {
-        printf("[-] Error initializing KernelSymbolFinder\n");
-        return 4;
-    }
-    initializePatchFinderWithBase(0, (char *)[[newPath stringByAppendingString:@".dec"] UTF8String]);
+int spawnBinaryAtPath(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env) {
+    pid_t pd;
+    const char* args[] = {binary, arg1, arg2, arg3, arg4, arg5, arg6,  NULL};
+    int rv = posix_spawn(&pd, binary, NULL, NULL, (char **)&args, env);
+    if (rv) return rv;
     return 0;
+}
+
+int prepareKernelForPatchFinder(){
+    NSString *kernelNewLocation;
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDateFormatter *dateTimeFormat = [[NSDateFormatter alloc] init];
+    [dateTimeFormat setDateFormat:@"dd.MM.YY:HH.mm.ss"];
+    
+    NSString *PathToDocuments = [[[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
+    mkdir(strdup([PathToDocuments UTF8String]), 0777);
+    kernelNewLocation = [PathToDocuments stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_kernelcache", [dateTimeFormat stringFromDate:[NSDate date]]]];
+    printf("Kernel Decompression: Copying Kernel to %s\n", [kernelNewLocation UTF8String]);
+    
+    [fileManager copyItemAtPath:@"/System/Library/Caches/com.apple.kernelcaches/kernelcache" toPath:kernelNewLocation error:&error];
+    if (error) {
+        printf("Kernel Decompression: Failed to copy the kernelcache with the following error: %s\n", [[error localizedDescription] UTF8String]);
+        return 4;
+    }
+    
+    if (decompressKernelCache(strdup([kernelNewLocation UTF8String]))) {
+        printf("Kernel Decompression: Error initializing KernelSymbolFinder\n");
+        return 4;
+    }
+    initializePatchFinderWithBase(0, (char *)[[kernelNewLocation stringByAppendingString:@".dec"] UTF8String]);
+    return 0;
+}
+
+int installBootStrap(){
+    int retval;
+    printf("Blizzard BOOTSTRAP: Preparing to Bootstrap!\n");
+    printf("Blizzard BOOTSTRAP: Creating a pre-jailbreak Snapshot! This will be useful in case we wanna un-jailbreak.\n");
+    int checkSnap = verifySnapshot("/", "Calm-Before-The-Storm");
+    
+    if (checkSnap != APFS_SNAPSHOT_EXISTS){
+        printf("Blizzard BOOTSTRAP: Temporarily setting kernel credentials\n");
+        uint64_t creds = copyPIDCredentials(getpid(), 0);
+        if (createNewAPFSSnapshot("/", "Calm-Before-The-Storm") == 0){
+            list_snapshots("/");
+            printf("Blizzard BOOTSTRAP: Successfully created the stock snapshot!\n");
+            retval = 0;
+        } else {
+            printf("Blizzard BOOTSTRAP: FAILED to create the stock snapshot!\n");
+            retval = -1;
+        }
+        uint64_t proc_smp = proc_of_pid(getpid());
+        wk64(proc_smp + off_p_ucred, creds);
+        return retval;
+    } else {
+        printf("Blizzard BOOTSTRAP: Safety Snapshot already exists! Will not make another one :-)\n");
+        return 0;
+    }
 }

@@ -143,7 +143,7 @@ BOOL remount1126() {
         printf("ROOT FS REMOUNT: File already exists! Good!\n");
     }
     close(fd);
-    printf("ROOT FS REMOUNT STATUS: %s\n", [[NSFileManager defaultManager] fileExistsAtPath:@"/RWTEST"] ? "Successful!" : "FAILED!");
+    printf("ROOT FS REMOUNT: %s\n", [[NSFileManager defaultManager] fileExistsAtPath:@"/RWTEST"] ? "Successful!" : "FAILED!");
     return [[NSFileManager defaultManager] fileExistsAtPath:@"/RWTEST"] ? YES : NO;
 }
 
@@ -172,7 +172,7 @@ int remountRootFS() {
         else {
             printf("ROOT FS REMOUNT: Disabling the APFS snapshot mitigations\n");
             char *snap = find_system_snapshot();
-            if (snap && !do_rename("/var/rootfsmnt", snap, "orig-fs")) {
+            if (snap && !renameAPFSSnapshot("/var/rootfsmnt", snap, "orig-fs")) {
                 rv = 0;
                 unmount("/var/rootfsmnt", 0);
                 rmdir("/var/rootfsmnt");
@@ -259,7 +259,7 @@ int unjailbreakBlizzard(){
         }
         if (retval == 0){
             printf("Blizzard Unjailbreak: Successfully restored the default APFS Snapshot!\n");
-            if (snapshot_check("/", "orig-fs") == 1) {
+            if (verifySnapshot("/", "orig-fs") == 1) {
                 retval = spawnBinaryWithArgs([NSURL fileURLWithPath:@"/sbin/mount_apfs"], @[@"-s", @"orig-fs", @"/", @"/var/MobileSoftwareUpdate/mnt1"]);
             } else {
                 retval = spawnBinaryWithArgs([NSURL fileURLWithPath:@"/sbin/mount_apfs"], @[@"-s", [NSString stringWithFormat:@"%s", systemSnapshot(copyBootHash())], @"/", @"/var/MobileSoftwareUpdate/mnt1"]);

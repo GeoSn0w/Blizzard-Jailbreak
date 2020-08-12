@@ -18,6 +18,7 @@
 #include "../Kernel Utilities/kexecute.h"
 #include "../Kernel Utilities/kernel_utils.h"
 #include "../sock_port/kernel_memory.h"
+#include <sys/mman.h>
 
 uint32_t swap_uint32( uint32_t val ) {
     val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF );
@@ -265,5 +266,175 @@ uint64_t getCodeSignatureLC(FILE *file, int64_t *machOff) {
         offset += cmd->cmdsize;
         free(cmd);
     }
+    return 0;
+}
+
+int addBinaryToAMFITrustCache(const char *path) {
+    NSMutableArray *paths = [NSMutableArray array];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    if (![fileManager fileExistsAtPath:@(path) isDirectory:&isDir]) {
+        printf("AMFI TRUST: Path does not exist!\n");
+        return -1;
+    }
+    NSURL *directoryURL = [NSURL URLWithString:@(path)];
+    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+    if (isDir) {
+        NSDirectoryEnumerator *enumerator = [fileManager
+                                             enumeratorAtURL:directoryURL
+                                             includingPropertiesForKeys:keys
+                                             options:0
+                                             errorHandler:^(NSURL *url, NSError *error) {
+                                                 if (error) printf("AMFI TRUST: %s\n", [[error localizedDescription] UTF8String]);
+                                                 return YES;
+                                             }];
+        
+        for (NSURL *url in enumerator) {
+            NSError *error;
+            NSNumber *isDirectory = nil;
+            if (![url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+                if (error) continue;
+            }
+            else if (![isDirectory boolValue]) {
+                int rv;
+                int fd;
+                uint8_t *p;
+                off_t sz;
+                struct stat st;
+                uint8_t buf[16];
+                char *fpath = strdup([[url path] UTF8String]);
+                if (strtail(fpath, ".plist") == 0 || strtail(fpath, ".nib") == 0 || strtail(fpath, ".strings") == 0 || strtail(fpath, ".png") == 0) {
+                    continue;
+                }
+                rv = lstat(fpath, &st);
+                if (rv || !S_ISREG(st.st_mode) || st.st_size < 0x4000) {
+                    continue;
+                }
+                fd = open(fpath, O_RDONLY);
+                if (fd < 0) {
+                    continue;
+                }
+                sz = read(fd, buf, sizeof(buf));
+                if (sz != sizeof(buf)) {
+                    close(fd);
+                    continue;
+                }
+                if (*(uint32_t *)buf != 0xBEBAFECA && !MACHO(buf)) {
+                    close(fd);
+                    continue;
+                }
+                p = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+                if (p == MAP_FAILED) {
+                    close(fd);
+                    continue;
+                }
+                [paths addObject:@(fpath)];
+                printf("AMFI TRUST: ADDING TO TRUST CACHE %s\n", fpath);
+                free(fpath);
+            }
+        }
+        if ([paths count] == 0) {
+            printf("AMFI TRUST: No files in %s passed the integrity checks!\n", path);
+            return -2;
+        }
+    }
+    else {
+        printf("AMFI TRUST: ADDING TO TRUST CACHE %s\n", path);
+        [paths addObject:@(path)];
+        int rv;
+        int fd;
+        uint8_t *p;
+        off_t sz;
+        struct stat st;
+        uint8_t buf[16];
+        
+        if (strtail(path, ".plist") == 0 || strtail(path, ".nib") == 0 || strtail(path, ".strings") == 0 || strtail(path, ".png") == 0) {
+            printf("AMFI TRUST Binary not an executable! Kernel doesn't like trusting data, geez\n");
+            return 2;
+        }
+        
+        rv = lstat(path, &st);
+        if (rv || !S_ISREG(st.st_mode) || st.st_size < 0x4000) {
+            printf("AMFI TRUST Binary too big\n");
+            return 3;
+        }
+        
+        fd = open(path, O_RDONLY);
+        if (fd < 0) {
+            printf("AMFI TRUST Don't have permission to open file\n");
+            return 4;
+        }
+        
+        sz = read(fd, buf, sizeof(buf));
+        if (sz != sizeof(buf)) {
+            close(fd);
+            printf("AMFI TRUST Failed to read from binary\n");
+            return 5;
+        }
+        if (*(uint32_t *)buf != 0xBEBAFECA && !MACHO(buf)) {
+            close(fd);
+            printf("AMFI TRUST Binary not a macho!\n");
+            return 6;
+        }
+        
+        p = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+        if (p == MAP_FAILED) {
+            close(fd);
+            printf("AMFI TRUST Failed to mmap file\n");
+            return 7;
+        }
+    }
+    uint64_t trust_chain = Find_trustcache();
+    printf("AMFI TRUST trust_chain at 0x%llx\n", trust_chain);
+    struct trust_chain fake_chain;
+    fake_chain.next = rk64(trust_chain);
+    arc4random_buf(fake_chain.uuid, 16);
+    int cnt = 0;
+    uint8_t hash[CC_SHA256_DIGEST_LENGTH];
+    hash_t *allhash = malloc(sizeof(hash_t) * [paths count]);
+    for (int i = 0; i != [paths count]; ++i) {
+        uint8_t *cd = getCodeDirectory((char*)[[paths objectAtIndex:i] UTF8String]);
+        if (cd != NULL) {
+            getSHA256inplace(cd, hash);
+            memmove(allhash[cnt], hash, sizeof(hash_t));
+            ++cnt;
+        }
+        else {
+            printf("AMFI TRUST CD NULL\n");
+            continue;
+        }
+    }
+    fake_chain.count = cnt;
+    size_t length = (sizeof(fake_chain) + cnt * sizeof(hash_t) + 0x3FFF) & ~0x3FFF;
+    uint64_t kernel_trust = kalloc(length);
+    printf("AMFI TRUST allocated: 0x%zx => 0x%llx\n", length, kernel_trust);
+    kwrite(kernel_trust, &fake_chain, sizeof(fake_chain));
+    kwrite(kernel_trust + sizeof(fake_chain), allhash, cnt * sizeof(hash_t));
+#if __arm64e__
+    Kernel_Execute(Find_pmap_load_trust_cache_ppl(), kernel_trust, length, 0, 0, 0, 0, 0);
+#else
+    wk64(trust_chain, kernel_trust);
+#endif
+    free(allhash);
+    return 0;
+}
+
+int amfiTrustHash(hash_t hash) {
+    uint64_t trust_chain = Find_trustcache();
+    printf("AMFI TRUST trust_chain at 0x%llx\n", trust_chain);
+    struct trust_chain fake_chain;
+    fake_chain.next = rk64(trust_chain);
+    arc4random_buf(fake_chain.uuid, 16);
+    fake_chain.count = 1;
+    size_t length = (sizeof(fake_chain) + sizeof(hash_t) + 0x3FFF) & ~0x3FFF;
+    uint64_t kernel_trust = kalloc(length);
+    printf("AMFI TRUST allocated: 0x%zx => 0x%llx\n", length, kernel_trust);
+    kwrite(kernel_trust, &fake_chain, sizeof(fake_chain));
+    kwrite(kernel_trust + sizeof(fake_chain), hash, sizeof(hash_t));
+#if __arm64e__
+    kexecute(Find_pmap_load_trust_cache_ppl(), kernel_trust, length, 0, 0, 0, 0, 0);
+#else
+    wk64(trust_chain, kernel_trust);
+#endif
     return 0;
 }

@@ -24,7 +24,7 @@ static BlizzardLog *BlizzLogger;
 }
 
 int dismissButtonActionType = 0;
-int IS_BLIZZARD_DEBUG = 0;
+int IS_BLIZZARD_DEBUG = 1;
 int shouldUnjailbreak = 0;
 
 - (void)viewDidLoad {
@@ -58,6 +58,7 @@ int shouldUnjailbreak = 0;
             [self.dismissLog setTitle:@"REBOOT DEVICE" forState:UIControlStateNormal];
         } else {
             printf("Used the old remount, tee hee\n");
+            installBootStrap();
             cleanupAfterBlizzard();
         }
     }

@@ -1,3 +1,5 @@
+// From JelbrekLib, by Jake James!
+
 #import "../AMFI Utilities/amfid.h"
 #import "../AMFI Utilities/amfid_mem.h"
 #import "../AMFI Utilities/amfi_utils.h"

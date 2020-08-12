@@ -20,6 +20,7 @@ int remountFileSystem(void);
 int setcsflags(pid_t pid);
 int prepareKernelForPatchFinder(void);
 int cleanupAfterBlizzard(void);
+int installBootStrap(void);
 uint64_t findOurOwnProcess(void);
 uint64_t escapeSandboxForProcess(pid_t proc_pid);
 uint64_t copyPIDCredentials(pid_t processToBeGivenCreds, pid_t donorProcess);

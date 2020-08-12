@@ -11,10 +11,17 @@
 #include "../Blizzard Jailbreak/BlizzardSpawnerTools.h"
 #include "../Blizzard Jailbreak/blizzardJailbreak.h"
 
+typedef struct val_attrs {
+    uint32_t          length;
+    attribute_set_t   returned;
+    attrreference_t   name_info;
+} val_attrs_t;
+
 int list_snapshots(const char *vol){
     int dirfd = open(vol, O_RDONLY, 0);
     if (dirfd < 0) {
-        printf("List Snapshots: get_dirfd\n");
+        perror("get_dirfd");
+        printf("List Snapshots: Failed to open file descriptor!\n");
         return -1;
     }
     struct attrlist alist = { 0 };
@@ -22,7 +29,8 @@ int list_snapshots(const char *vol){
     alist.commonattr = ATTR_BULK_REQUIRED;
     int count = fs_snapshot_list(dirfd, &alist, &abuf[0], sizeof (abuf), 0);
     if (count < 0) {
-        printf("List Snapshots: fs_snapshot_list\n");
+        perror("fs_snapshot_list");
+        printf("List Snapshots: Failed to list Snapshots!\n");
         return -1;
     }
     char *p = &abuf[0];
@@ -37,7 +45,7 @@ int list_snapshots(const char *vol){
             attrreference_t ar = *(attrreference_t *)field;
             char *name = field + ar.attr_dataoffset;
             field += sizeof (attrreference_t);
-            (void) printf("[snapshots] %s\n", name);
+            (void) printf("\t ->> %s\n", name);
         }
         
         p += len;
@@ -58,7 +66,7 @@ char *copyBootHash() {
             hash = NULL;
         }
         else {
-            char *result = (char*)malloc((2 * size) | 1); // even number | 1 = that number + 1, just because why not
+            char *result = (char*)malloc((2 * size) | 1);
             memset(result, 0, (2 * size) | 1);
             
             int i = 0;
@@ -88,26 +96,43 @@ char *find_system_snapshot() {
     return str;
 }
 
-int do_rename(const char *vol, const char *snap, const char *nw) {
-    int dirfd = open(vol, O_RDONLY);
-    if (dirfd < 0) {
-        printf("List Snapshots: open\n");
+int createNewAPFSSnapshot(const char *volume, const char *snapshot) {
+    int retvalue;
+    printf("APFS Utilities: Preparing to create a new Snapshot...\n");
+    int fileDescriptor = get_dirfd(volume);
+    if (fileDescriptor < 0) {
+        perror("open");
+        printf("APFS Utilities: Failed to create a Snapshot! Error at get_dirfd.\n");
         return -1;
     }
-    int ret = fs_snapshot_rename(dirfd, snap, nw, 0);
-    close(dirfd);
-    if (ret != 0)
-        perror("List Snapshots: fs_snapshot_rename\n");
-    return (ret);
+    retvalue = fs_snapshot_create(fileDescriptor, snapshot, 0);
+    close(fileDescriptor);
+    if (retvalue != 0) {
+        perror("fs_snapshot_create");
+        printf("APFS Utilities: Failed to create a Snapshot! Error at fs_snapshot_create()\n");
+        return -1;
+    }
+    return 0;
 }
 
-typedef struct val_attrs {
-    uint32_t          length;
-    attribute_set_t   returned;
-    attrreference_t   name_info;
-} val_attrs_t;
+int renameAPFSSnapshot(const char *volume, const char *snapshot, const char *nw) {
+    int retvalue;
+    int fileDescriptor = open(volume, O_RDONLY);
+    if (fileDescriptor < 0) {
+        perror("open");
+        printf("APFS Utilities: RENAME: Cannot open file descriptor.\n");
+        return -1;
+    }
+    retvalue = fs_snapshot_rename(fileDescriptor, snapshot, nw, 0);
+    close(fileDescriptor);
+    if (retvalue != 0) {
+        perror("fs_snapshot_rename\n");
+        printf("APFS Utilities: RENAME: Failed to rename a Snapshot! Error at fs_snapshot_rename()\n");
+    }
+    return 0;
+}
 
-int snapshot_check(const char *vol, const char *name){
+int verifySnapshot(const char *vol, const char *name){
     struct attrlist attr_list = { 0 };
     attr_list.commonattr = ATTR_BULK_REQUIRED;
     char *buf = (char*)calloc(2048, sizeof(char));
@@ -130,7 +155,8 @@ int snapshot_check(const char *vol, const char *name){
     close(fd);
     
     if (retcount < 0) {
-        printf("List Snapshots: fs_snapshot_list\n");
+        perror("fs_snapshot_list");
+        printf("List Snapshots: Failed to list snapshots!\n");
         return -1;
     }
     return 0;
