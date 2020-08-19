@@ -10,7 +10,7 @@
 #include "blizzardJailbreak.h"
 
 
-@interface blizzardView ()
+@interface blizzardView () <UITextFieldDelegate>
 
 @end
 
@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.nonceField.delegate = self;
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n");
 }
 - (IBAction)blizzardInit:(id)sender {
@@ -30,5 +31,14 @@
     });
     
 }
-
+- (IBAction)injectSettingsUI:(id)sender {
+    [self performSegueWithIdentifier:@"settingsView" sender:self];
+}
+- (IBAction)saveJailbreakSettings:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 @end

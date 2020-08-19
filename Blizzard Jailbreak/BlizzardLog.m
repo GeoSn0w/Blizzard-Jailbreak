@@ -24,7 +24,7 @@ static BlizzardLog *BlizzLogger;
 }
 
 int dismissButtonActionType = 0;
-int IS_BLIZZARD_DEBUG = 1;
+int IS_BLIZZARD_DEBUG = 0;
 int shouldUnjailbreak = 0;
 
 - (void)viewDidLoad {

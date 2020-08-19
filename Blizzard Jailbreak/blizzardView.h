@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+UIBarButtonItem* dismissKeyboardButton;
 @interface blizzardView : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *blizzardInit;
+@property (weak, nonatomic) IBOutlet UITextField *nonceField;
 
 @end
 
