@@ -8,7 +8,7 @@
 
 #import "blizzardView.h"
 #include "blizzardJailbreak.h"
-
+#define iosVersionSupport(v)  ([[[UIDevice currentDevice] systemVersion] compare:@v options:NSNumericSearch] != NSOrderedDescending)
 
 @interface blizzardView () <UITextFieldDelegate>
 
@@ -22,13 +22,19 @@
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n");
 }
 - (IBAction)blizzardInit:(id)sender {
-    _blizzardInit.enabled = NO;
-    [_blizzardInit setTitle:@"JAILBREAKING..." forState:UIControlStateDisabled];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-             [self performSegueWithIdentifier:@"vc" sender:self];
+    if (iosVersionSupport("13.5")){
+        _blizzardInit.enabled = NO;
+        [_blizzardInit setTitle:@"JAILBREAKING..." forState:UIControlStateDisabled];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 [self performSegueWithIdentifier:@"vc" sender:self];
         });
     });
+    } else if (iosVersionSupport("13.6")){
+        printf("The iOS version is not supported");
+        exit(0);
+    }
+    
     
 }
 - (IBAction)injectSettingsUI:(id)sender {
