@@ -284,3 +284,21 @@ int installBootStrap(){
         return 0;
     }
 }
+
+int getKernelCacheFromDevice(){
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd.MM.YY:HH.mm.ss"];
+        
+        NSString *docs = [[[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
+        mkdir((char *)[docs UTF8String], 0777);
+        newPath = [docs stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_kernel", [formatter stringFromDate:[NSDate date]]]];
+        
+        printf("Copying Kernelcache from iOS system folders to %s\n", [newPath UTF8String]);
+        
+        // Make a copy of the kernel cache from the device
+        [fileManager copyItemAtPath:@"/System/Library/Caches/com.apple.kernelcaches/kernelcache" toPath:newPath error:&error];
+        if (error) {
+            printf("Failed to copy the Kernel! You may not have enough permissions.\n");
+            return -1;
+        }        
+}
