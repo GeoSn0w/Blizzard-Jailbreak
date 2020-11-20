@@ -11,7 +11,7 @@
 #include <stdio.h>
 extern mach_port_t tfp0;
 void remountFirstStepSys(void);
-int exploit_init(void);
+int ios11_exploit_init(void);
 int rootifyOurselves(void);
 int rootifyProcessByPid(void);
 int restoreProcessCredentials(uint64_t creds, pid_t pid);

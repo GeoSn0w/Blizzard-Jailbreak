@@ -47,7 +47,7 @@ void platformize(pid_t pid) {
 }
 
 
-int exploit_init(){
+int ios11_exploit_init(){
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n\n");
     tfp0 = get_tfp0();
     if (MACH_PORT_VALID(tfp0)){

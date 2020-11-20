@@ -11,7 +11,8 @@
 #import "../Exploits/sock_port/exploit.h"
 #import "../Blizzard Jailbreak/blizzardJailbreak.h"
 #import "../APFS Utilities/rootfs_remount.h"
-
+#import "../Exploits/FreeTheSandbox/freethesandbox.h"
+#define currentVer(v)  ([[[UIDevice currentDevice] systemVersion] compare:@v options:NSNumericSearch] != NSOrderedDescending)
 @interface BlizzardLog()
 @end
 
@@ -44,23 +45,73 @@ int shouldUnjailbreak = 0;
     
 }
 -(void) runJailbreak {
-    if (exploit_init() == 0){
-        if (shouldUnjailbreak == 1){
-            if (unjailbreakBlizzard() == 0){
-                dismissButtonActionType = 1;
-                printf("Unjailbroken!\n");
-                [self.dismissLog setTitle:@"REBOOT DEVICE" forState:UIControlStateNormal];
+    if (currentVer("11.4")){
+        if (ios11_exploit_init() == 0){
+            if (shouldUnjailbreak == 1){
+                if (unjailbreakBlizzard() == 0){
+                    dismissButtonActionType = 1;
+                    printf("Unjailbroken!\n");
+                    [self.dismissLog setTitle:@"REBOOT DEVICE" forState:UIControlStateNormal];
+                }
+                return;
             }
+            if (remountFileSystem() == 0 && shouldReboot == 1 && shouldUnjailbreak != 1){
+                dismissButtonActionType = 1;
+                [self.dismissLog setTitle:@"REBOOT DEVICE" forState:UIControlStateNormal];
+            } else {
+                printf("Used the old remount, tee hee\n");
+                installBootStrap();
+                cleanupAfterBlizzard();
+            }
+        }
+    } else if (currentVer("13.7")){
+        extern char *get_current_deviceModel(void);
+        printf("Model: %s\n", get_current_deviceModel());
+        printf("Version: %s\n", [[[UIDevice currentDevice] systemVersion] UTF8String]);
+        
+        extern uint64_t kaslr;
+        extern mach_port_t tfp0_port;
+    
+        // Activate tfp0-persis program
+        mach_port_t midi_bsport = 0;
+        extern kern_return_t bootstrap_look_up(mach_port_t bp, const char *service_name, mach_port_t *sp);
+        bootstrap_look_up(bootstrap_port, "com.apple.midiserver", &midi_bsport);
+        if(!midi_bsport){
+            //printf("run_exploit_or_achieve_tf0 failed: bootstrap_look_up has problem\n");
+            exit(1);
+        }
+        
+        mach_port_t stored_ports[3] = {0};
+        stored_ports[0] = mach_task_self();
+        stored_ports[2] = midi_bsport;
+        mach_ports_register(mach_task_self(), stored_ports, 3);
+        // Waiting for installation
+        sleep(2);
+        
+        tfp0_port = 0;
+        task_get_special_port(mach_task_self(), TASK_ACCESS_PORT, &tfp0_port);
+        if(tfp0_port == 0){
+            printf("require to run exploit first\n");
+            
+            extern bool check_device_compatibility(void);
+            if(check_device_compatibility() == false){
+                printf("Execution pause: Not found offsets set for current device(model: %s)\n", get_current_deviceModel());
+                return;
+            }
+            
+            extern void exploit_start(void);
+            iOS13_exploit_init();
+            
+            printf("persis tfp0 installed, you can quit app now...\n");
             return;
         }
-        if (remountFileSystem() == 0 && shouldReboot == 1 && shouldUnjailbreak != 1){
-            dismissButtonActionType = 1;
-            [self.dismissLog setTitle:@"REBOOT DEVICE" forState:UIControlStateNormal];
-        } else {
-            printf("Used the old remount, tee hee\n");
-            installBootStrap();
-            cleanupAfterBlizzard();
-        }
+        stored_ports[2] = 0;
+        mach_ports_register(mach_task_self(), stored_ports, 3);
+        
+        printf("tfp0: 0x%x\n", tfp0_port);
+        pid_for_task(tfp0_port, (int*)&kaslr);
+        printf("kaslr: 0x%x\n", (uint32_t)kaslr);
+        
     }
 }
 - (IBAction)dismissLogWindow:(id)sender {

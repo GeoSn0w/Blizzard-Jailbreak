@@ -22,7 +22,7 @@
     printf("Blizzard Jailbreak\nby GeoSn0w (@FCE365)\n\nAn Open-Source Jailbreak for you to study and dissect :-)\n");
 }
 - (IBAction)blizzardInit:(id)sender {
-    if (iosVersionSupport("13.5")){
+    if (iosVersionSupport("13.7")){
         _blizzardInit.enabled = NO;
         [_blizzardInit setTitle:@"JAILBREAKING..." forState:UIControlStateDisabled];
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -30,7 +30,7 @@
                  [self performSegueWithIdentifier:@"vc" sender:self];
         });
     });
-    } else if (iosVersionSupport("13.6")){
+    } else if (iosVersionSupport("14.0")){
         printf("The iOS version is not supported");
         exit(0);
     }
