@@ -6,7 +6,7 @@
 //
 #import <Foundation/Foundation.h>
 #include "blizzardJailbreak.h"
-#include "../sock_port/exploit.h"
+#include "../Exploits/sock_port/exploit.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
@@ -14,9 +14,9 @@
 #include <mach/mach.h>
 #include <sys/mman.h>
 #include <spawn.h>
-#include "../sock_port/kernel_memory.h"
-#include "../sock_port/offsetof.h"
-#include "../sock_port/offsets.h"
+#include "../Exploits/sock_port/kernel_memory.h"
+#include "../Exploits/sock_port/offsetof.h"
+#include "../Exploits/sock_port/offsets.h"
 #include "../PatchFinder/patchfinder64.h"
 #include "../Kernel Utilities/kernel_utils.h"
 #include "../Kernel Utilities/kexecute.h"
@@ -283,22 +283,4 @@ int installBootStrap(){
         printf("Blizzard BOOTSTRAP: Safety Snapshot already exists! Will not make another one :-)\n");
         return 0;
     }
-}
-
-int getKernelCacheFromDevice(){
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd.MM.YY:HH.mm.ss"];
-        
-        NSString *docs = [[[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
-        mkdir((char *)[docs UTF8String], 0777);
-        newPath = [docs stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_kernel", [formatter stringFromDate:[NSDate date]]]];
-        
-        printf("Copying Kernelcache from iOS system folders to %s\n", [newPath UTF8String]);
-        
-        // Make a copy of the kernel cache from the device
-        [fileManager copyItemAtPath:@"/System/Library/Caches/com.apple.kernelcaches/kernelcache" toPath:newPath error:&error];
-        if (error) {
-            printf("Failed to copy the Kernel! You may not have enough permissions.\n");
-            return -1;
-        }        
 }

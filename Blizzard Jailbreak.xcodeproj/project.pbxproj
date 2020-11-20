@@ -46,13 +46,13 @@
 		D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */; };
 		D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EC24E1C83E002E6756 /* offsetof.c */; };
 		D63EDAC124E1989F009B305D /* blizzardJailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = D63EDABF24E1989F009B305D /* blizzardJailbreak.m */; };
-		D69C4C9925686628001DE2BC /* IOKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D69C4C9825686627001DE2BC /* IOKit.tbd */; };
 		D69C4CAE25686895001DE2BC /* ios13_userspace_pac.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA425686894001DE2BC /* ios13_userspace_pac.c */; };
 		D69C4CAF25686895001DE2BC /* ios13_kernel_universal.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA525686894001DE2BC /* ios13_kernel_universal.c */; };
 		D69C4CB025686895001DE2BC /* ios13_userspace.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA625686894001DE2BC /* ios13_userspace.c */; };
 		D69C4CB125686895001DE2BC /* ios13_change_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA725686894001DE2BC /* ios13_change_offsets.m */; };
 		D69C4CB225686895001DE2BC /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CAA25686895001DE2BC /* libsnappy.c */; };
 		D69C4CB325686895001DE2BC /* ios_7st_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CAB25686895001DE2BC /* ios_7st_utils.m */; };
+		D69C4CBA25686C8E001DE2BC /* IOKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D69C4CB925686C8E001DE2BC /* IOKit.tbd */; };
 		D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */; };
 /* End PBXBuildFile section */
 
@@ -171,6 +171,7 @@
 		D69C4CB6256868BB001DE2BC /* IOKitKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOKitKeys.h; sourceTree = "<group>"; };
 		D69C4CB7256868BB001DE2BC /* IOKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
 		D69C4CB8256868BB001DE2BC /* IOTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOTypes.h; sourceTree = "<group>"; };
+		D69C4CB925686C8E001DE2BC /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = "../../../Desktop/ToolChain/Jailbreak Frameworks/IOKit.tbd"; sourceTree = "<group>"; };
 		D6FFA56024E1A59A00CAC2E2 /* blizzardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardView.h; sourceTree = "<group>"; };
 		D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blizzardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,7 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D69C4C9925686628001DE2BC /* IOKit.tbd in Frameworks */,
+				D69C4CBA25686C8E001DE2BC /* IOKit.tbd in Frameworks */,
 				D613B74D24E2B2600069CA9B /* libMobileGestalt.tbd in Frameworks */,
 				D613B74B24E2B2560069CA9B /* libcompression.tbd in Frameworks */,
 				D613B74624E2B1E70069CA9B /* libimg4tool.a in Frameworks */,
@@ -279,6 +280,7 @@
 			children = (
 				D69C4C96256865BF001DE2BC /* IOKit.tbd */,
 				D69C4C9825686627001DE2BC /* IOKit.tbd */,
+				D69C4CB925686C8E001DE2BC /* IOKit.tbd */,
 				D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */,
 				D613B74A24E2B2560069CA9B /* libcompression.tbd */,
 				D613B72E24E2A7B70069CA9B /* libimg4tool.a */,
