@@ -2,9 +2,9 @@
 #import "kernel_utils.h"
 #import "kexecute.h"
 #import "../PatchFinder/patchfinder64.h"
-#import "../sock_port/offsetof.h"
-#import <IOKit/IOKitLib.h>
-#include "../sock_port/kernel_memory.h"
+#import "../Exploits/sock_port/offsetof.h"
+#import "../Exploits/sock_port/include/IOKit/IOKitLib.h"
+#include "../Exploits/sock_port/kernel_memory.h"
 
 typedef int (*kexecFunc)(uint64_t function, size_t argument_count, ...);
 kexecFunc kernel_exec;

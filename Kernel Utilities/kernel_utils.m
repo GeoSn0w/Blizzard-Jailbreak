@@ -1,10 +1,10 @@
 
 #import "kernel_utils.h"
 #import "../PatchFinder/patchfinder64.h"
-#import "../sock_port/offsetof.h"
-#import "../sock_port/offsets.h"
+#import "../Exploits/sock_port/offsetof.h"
+#import "../Exploits/sock_port/offsets.h"
 #import "kexecute.h"
-#include "../sock_port/kernel_memory.h"
+#include "../Exploits/sock_port/kernel_memory.h"
 #include <stdbool.h>
 #include <spawn.h>
 #import <Foundation/Foundation.h>

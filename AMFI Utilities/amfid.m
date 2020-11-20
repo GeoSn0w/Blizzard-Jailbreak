@@ -6,7 +6,7 @@
 #import "../AMFI Utilities/amfid_tools.h"
 #import "../Kernel Utilities/kernel_utils.h"
 #import "../AMFI Utilities/cs_blob.h"
-#import "../sock_port/offsetof.h"
+#import "../Exploits/sock_port/offsetof.h"
 #import <Foundation/Foundation.h>
 #include "../PatchFinder/patchfinder64.h"
 #include "../AMFI Utilities/osobject.h"

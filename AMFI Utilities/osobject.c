@@ -2,7 +2,7 @@
 #import "../Kernel Utilities/kexecute.h"
 #import "../Kernel Utilities/kernel_utils.h"
 #import "../PatchFinder/patchfinder64.h"
-#include "../sock_port/kernel_memory.h"
+#include "../Exploits/sock_port/kernel_memory.h"
 #import "osobject.h"
 
 static uint32_t off_OSDictionary_SetObjectWithCharP = sizeof(void*) * 0x1F;

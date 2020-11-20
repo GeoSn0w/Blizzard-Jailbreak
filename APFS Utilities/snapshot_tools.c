@@ -1,9 +1,9 @@
 #import "../Kernel Utilities/kernel_utils.h"
 #import "../PatchFinder/patchfinder64.h"
-#import "../sock_port/offsetof.h"
-#import "../sock_port/offsets.h"
+#import "../Exploits/sock_port/offsetof.h"
+#import "../Exploits/sock_port/offsets.h"
 #import <sys/snapshot.h>
-#import <IOKit/IOKitLib.h>
+#include "../Exploits/sock_port/include/IOKit/IOKitLib.h"
 #import <stdlib.h>
 #import <signal.h>
 #import <sys/attr.h>

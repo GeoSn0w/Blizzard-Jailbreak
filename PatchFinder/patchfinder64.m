@@ -13,7 +13,7 @@
 #import <stdbool.h>
 #import <mach-o/fat.h>
 #include "../Kernel Utilities/kernel_utils.h"
-#include "../sock_port/exploit.h"
+#include "../Exploits/sock_port/exploit.h"
 
 typedef unsigned long long addr_t;
 #define IS64(image) (*(uint8_t *)(image) & 1)

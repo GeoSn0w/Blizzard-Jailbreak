@@ -46,6 +46,7 @@
 		D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EA24E1C7FF002E6756 /* kernel_utils.m */; };
 		D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EC24E1C83E002E6756 /* offsetof.c */; };
 		D63EDAC124E1989F009B305D /* blizzardJailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = D63EDABF24E1989F009B305D /* blizzardJailbreak.m */; };
+		D69C4C9925686628001DE2BC /* IOKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D69C4C9825686627001DE2BC /* IOKit.tbd */; };
 		D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,13 @@
 		D62CA20A24E1D95F002E6756 /* kerneldec */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = kerneldec; path = "../jelbrekLib-master/kerneldec/kerneldec"; sourceTree = "<group>"; };
 		D63EDABF24E1989F009B305D /* blizzardJailbreak.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blizzardJailbreak.m; sourceTree = "<group>"; };
 		D63EDAC024E1989F009B305D /* blizzardJailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardJailbreak.h; sourceTree = "<group>"; };
+		D69C4C96256865BF001DE2BC /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = ../ToolChain/IOKit.tbd; sourceTree = "<group>"; };
+		D69C4C9825686627001DE2BC /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = "../ToolChain/Jailbreak Frameworks/IOKit.tbd"; sourceTree = "<group>"; };
+		D69C4C9C256866A2001DE2BC /* IOKitKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKitKeys.h; path = include/IOKit/IOKitKeys.h; sourceTree = "<group>"; };
+		D69C4C9D256866A2001DE2BC /* OSMessageNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSMessageNotification.h; path = include/IOKit/OSMessageNotification.h; sourceTree = "<group>"; };
+		D69C4C9E256866A2001DE2BC /* IOTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOTypes.h; path = include/IOKit/IOTypes.h; sourceTree = "<group>"; };
+		D69C4C9F256866A3001DE2BC /* IOReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOReturn.h; path = include/IOKit/IOReturn.h; sourceTree = "<group>"; };
+		D69C4CA0256866A3001DE2BC /* IOKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKitLib.h; path = include/IOKit/IOKitLib.h; sourceTree = "<group>"; };
 		D6FFA56024E1A59A00CAC2E2 /* blizzardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardView.h; sourceTree = "<group>"; };
 		D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blizzardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D69C4C9925686628001DE2BC /* IOKit.tbd in Frameworks */,
 				D613B74D24E2B2600069CA9B /* libMobileGestalt.tbd in Frameworks */,
 				D613B74B24E2B2560069CA9B /* libcompression.tbd in Frameworks */,
 				D613B74624E2B1E70069CA9B /* libimg4tool.a in Frameworks */,
@@ -184,13 +193,13 @@
 		82F179E322DF4ED700231F8C = {
 			isa = PBXGroup;
 			children = (
+				D69C4C9525686579001DE2BC /* Exploits */,
 				D62BC51C24E4112300EC63D4 /* Base Binaries */,
 				D613B73A24E2B13E0069CA9B /* Helper Libraries */,
 				D613B71D24E2A68D0069CA9B /* APFS Utilities */,
 				D613B71C24E2A6690069CA9B /* AMFI Utilities */,
 				D62CA1DF24E1C6FB002E6756 /* Kernel Utilities */,
 				D62CA1DB24E1C660002E6756 /* PatchFinder */,
-				82F179EE22DF4ED700231F8C /* sock_port */,
 				D6FFA55F24E19E0900CAC2E2 /* Blizzard Jailbreak */,
 				82F17A0722DF4ED800231F8C /* sock_port_tests */,
 				82F17A1222DF4ED800231F8C /* sock_port_UITests */,
@@ -212,6 +221,11 @@
 		82F179EE22DF4ED700231F8C /* sock_port */ = {
 			isa = PBXGroup;
 			children = (
+				D69C4C9C256866A2001DE2BC /* IOKitKeys.h */,
+				D69C4CA0256866A3001DE2BC /* IOKitLib.h */,
+				D69C4C9F256866A3001DE2BC /* IOReturn.h */,
+				D69C4C9E256866A2001DE2BC /* IOTypes.h */,
+				D69C4C9D256866A2001DE2BC /* OSMessageNotification.h */,
 				82F17A2122DF4EF100231F8C /* exploit.c */,
 				82F17A2222DF4EF100231F8C /* exploit.h */,
 				82F17A2422DF4F1C00231F8C /* exploit_utilities.c */,
@@ -249,6 +263,8 @@
 		82F17A2722DF57B700231F8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D69C4C96256865BF001DE2BC /* IOKit.tbd */,
+				D69C4C9825686627001DE2BC /* IOKit.tbd */,
 				D613B74C24E2B25F0069CA9B /* libMobileGestalt.tbd */,
 				D613B74A24E2B2560069CA9B /* libcompression.tbd */,
 				D613B72E24E2A7B70069CA9B /* libimg4tool.a */,
@@ -339,6 +355,14 @@
 				D613B78024E2F9980069CA9B /* lzssdec.cpp */,
 			);
 			path = "Kernel Utilities";
+			sourceTree = "<group>";
+		};
+		D69C4C9525686579001DE2BC /* Exploits */ = {
+			isa = PBXGroup;
+			children = (
+				82F179EE22DF4ED700231F8C /* sock_port */,
+			);
+			path = Exploits;
 			sourceTree = "<group>";
 		};
 		D6FFA55F24E19E0900CAC2E2 /* Blizzard Jailbreak */ = {
@@ -719,7 +743,7 @@
 					"-framework",
 					IOKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.geosn0w.blizzardjb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geosn0w.blizzard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -761,7 +785,7 @@
 					"-framework",
 					IOKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.geosn0w.blizzardjb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geosn0w.blizzard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

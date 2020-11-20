@@ -17,7 +17,7 @@
 #include <Foundation/Foundation.h>
 #include "../Kernel Utilities/kexecute.h"
 #include "../Kernel Utilities/kernel_utils.h"
-#include "../sock_port/kernel_memory.h"
+#include "../Exploits/sock_port/kernel_memory.h"
 #include <sys/mman.h>
 
 uint32_t swap_uint32( uint32_t val ) {
