@@ -13,7 +13,6 @@ Feel free to mess with the code as long as you do proper crediting where it is d
 
 ### Speaking of credits
 Special thanks to the following developers. Their work is used in this project:
-* <a href="https://twitter.com/FreeTheSandbox">#FreeTheSandbox</a>
 * <a href="https://twitter.com/Jakeashacks">Jake James</a>
 * <a href="https://twitter.com/Pwn20wnd">Pwn20wnd</a>
 * <a href="https://twitter.com/electra_team">Electra Team</a>

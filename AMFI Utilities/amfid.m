@@ -15,7 +15,7 @@
 pthread_t exceptionThread;
 static mach_port_name_t AMFID_ExceptionPort = MACH_PORT_NULL;
 uint64_t origAMFID_MISVSACI = 0;
-uint64_t amfid_base;
+uint64_t amfid_base_old;
 
 BOOL entitlePidOnAMFI(pid_t pid, const char *ent, BOOL val) {
     if (!pid) return NO;
@@ -87,7 +87,7 @@ void* AMFIDExceptionHandler(void* arg) {
             }
             printf("\n");
             if (strlen((char*)orig_cdhash)) {
-                amfid_base = binary_load_address(task_port);
+                amfid_base_old = binary_load_address(task_port);
                 printf("AMFI TOOLS: Jumping thread to 0x%llx\n", origAMFID_MISVSACI);
                 new_state.__pc = origAMFID_MISVSACI;
             } else {
@@ -200,17 +200,17 @@ uint64_t patchAMFID() {
     init_amfid_mem(amfid_task_port);
     setAmfidExceptionHandler(amfid_task_port, AMFIDExceptionHandler);
     printf("AMFI TOOLS: About to search for the binary load address\n");
-    amfid_base = binary_load_address(amfid_task_port);
-    printf("AMFI TOOLS: Amfid load address: 0x%llx\n", amfid_base);
+    amfid_base_old = binary_load_address(amfid_task_port);
+    printf("AMFI TOOLS: Amfid load address: 0x%llx\n", amfid_base_old);
     mach_vm_size_t sz;
-    kr = mach_vm_read_overwrite(amfid_task_port, amfid_base+amfid_MISValidateSignatureAndCopyInfo_import_offset, 8, (mach_vm_address_t)&origAMFID_MISVSACI, &sz);
+    kr = mach_vm_read_overwrite(amfid_task_port, amfid_base_old+amfid_MISValidateSignatureAndCopyInfo_import_offset, 8, (mach_vm_address_t)&origAMFID_MISVSACI, &sz);
     
     if (kr != KERN_SUCCESS) {
         printf("AMFI TOOLS: Error reading MISVSACI: %s\n", mach_error_string(kr));
         return -1;
     }
     printf("AMFI TOOLS: Original MISVSACI 0x%llx\n", origAMFID_MISVSACI);
-    AmfidWrite_64bits(amfid_base + amfid_MISValidateSignatureAndCopyInfo_import_offset, 0x4141414141414141);
+    AmfidWrite_64bits(amfid_base_old + amfid_MISValidateSignatureAndCopyInfo_import_offset, 0x4141414141414141);
     printf("[i] AMFI TOOLS: AMFID hopefully patched\n");
     return origAMFID_MISVSACI;
 }

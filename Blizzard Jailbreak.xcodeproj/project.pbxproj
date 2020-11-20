@@ -47,6 +47,12 @@
 		D62CA1EE24E1C83F002E6756 /* offsetof.c in Sources */ = {isa = PBXBuildFile; fileRef = D62CA1EC24E1C83E002E6756 /* offsetof.c */; };
 		D63EDAC124E1989F009B305D /* blizzardJailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = D63EDABF24E1989F009B305D /* blizzardJailbreak.m */; };
 		D69C4C9925686628001DE2BC /* IOKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D69C4C9825686627001DE2BC /* IOKit.tbd */; };
+		D69C4CAE25686895001DE2BC /* ios13_userspace_pac.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA425686894001DE2BC /* ios13_userspace_pac.c */; };
+		D69C4CAF25686895001DE2BC /* ios13_kernel_universal.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA525686894001DE2BC /* ios13_kernel_universal.c */; };
+		D69C4CB025686895001DE2BC /* ios13_userspace.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA625686894001DE2BC /* ios13_userspace.c */; };
+		D69C4CB125686895001DE2BC /* ios13_change_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CA725686894001DE2BC /* ios13_change_offsets.m */; };
+		D69C4CB225686895001DE2BC /* libsnappy.c in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CAA25686895001DE2BC /* libsnappy.c */; };
+		D69C4CB325686895001DE2BC /* ios_7st_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D69C4CAB25686895001DE2BC /* ios_7st_utils.m */; };
 		D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */; };
 /* End PBXBuildFile section */
 
@@ -148,11 +154,23 @@
 		D63EDAC024E1989F009B305D /* blizzardJailbreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardJailbreak.h; sourceTree = "<group>"; };
 		D69C4C96256865BF001DE2BC /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = ../ToolChain/IOKit.tbd; sourceTree = "<group>"; };
 		D69C4C9825686627001DE2BC /* IOKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = IOKit.tbd; path = "../ToolChain/Jailbreak Frameworks/IOKit.tbd"; sourceTree = "<group>"; };
-		D69C4C9C256866A2001DE2BC /* IOKitKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKitKeys.h; path = include/IOKit/IOKitKeys.h; sourceTree = "<group>"; };
 		D69C4C9D256866A2001DE2BC /* OSMessageNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSMessageNotification.h; path = include/IOKit/OSMessageNotification.h; sourceTree = "<group>"; };
-		D69C4C9E256866A2001DE2BC /* IOTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOTypes.h; path = include/IOKit/IOTypes.h; sourceTree = "<group>"; };
-		D69C4C9F256866A3001DE2BC /* IOReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOReturn.h; path = include/IOKit/IOReturn.h; sourceTree = "<group>"; };
-		D69C4CA0256866A3001DE2BC /* IOKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKitLib.h; path = include/IOKit/IOKitLib.h; sourceTree = "<group>"; };
+		D69C4CA225686884001DE2BC /* xpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpc.h; sourceTree = "<group>"; };
+		D69C4CA325686884001DE2BC /* vnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vnode.h; sourceTree = "<group>"; };
+		D69C4CA425686894001DE2BC /* ios13_userspace_pac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ios13_userspace_pac.c; sourceTree = "<group>"; };
+		D69C4CA525686894001DE2BC /* ios13_kernel_universal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ios13_kernel_universal.c; sourceTree = "<group>"; };
+		D69C4CA625686894001DE2BC /* ios13_userspace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ios13_userspace.c; sourceTree = "<group>"; };
+		D69C4CA725686894001DE2BC /* ios13_change_offsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ios13_change_offsets.m; sourceTree = "<group>"; };
+		D69C4CA825686894001DE2BC /* xpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xpc.h; path = "../../../FreeTheSandbox_LPE_POC_13.7-main/ios13_app1/xpc.h"; sourceTree = "<group>"; };
+		D69C4CA925686894001DE2BC /* IOTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOTypes.h; sourceTree = "<group>"; };
+		D69C4CAA25686895001DE2BC /* libsnappy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libsnappy.c; sourceTree = "<group>"; };
+		D69C4CAB25686895001DE2BC /* ios_7st_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ios_7st_utils.m; sourceTree = "<group>"; };
+		D69C4CAC25686895001DE2BC /* libsnappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libsnappy.h; sourceTree = "<group>"; };
+		D69C4CAD25686895001DE2BC /* vnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vnode.h; path = "../../../FreeTheSandbox_LPE_POC_13.7-main/ios13_app1/vnode.h"; sourceTree = "<group>"; };
+		D69C4CB5256868BB001DE2BC /* IOReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOReturn.h; sourceTree = "<group>"; };
+		D69C4CB6256868BB001DE2BC /* IOKitKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOKitKeys.h; sourceTree = "<group>"; };
+		D69C4CB7256868BB001DE2BC /* IOKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
+		D69C4CB8256868BB001DE2BC /* IOTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOTypes.h; sourceTree = "<group>"; };
 		D6FFA56024E1A59A00CAC2E2 /* blizzardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blizzardView.h; sourceTree = "<group>"; };
 		D6FFA56124E1A59A00CAC2E2 /* blizzardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blizzardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,10 +239,6 @@
 		82F179EE22DF4ED700231F8C /* sock_port */ = {
 			isa = PBXGroup;
 			children = (
-				D69C4C9C256866A2001DE2BC /* IOKitKeys.h */,
-				D69C4CA0256866A3001DE2BC /* IOKitLib.h */,
-				D69C4C9F256866A3001DE2BC /* IOReturn.h */,
-				D69C4C9E256866A2001DE2BC /* IOTypes.h */,
 				D69C4C9D256866A2001DE2BC /* OSMessageNotification.h */,
 				82F17A2122DF4EF100231F8C /* exploit.c */,
 				82F17A2222DF4EF100231F8C /* exploit.h */,
@@ -360,9 +374,41 @@
 		D69C4C9525686579001DE2BC /* Exploits */ = {
 			isa = PBXGroup;
 			children = (
+				D69C4CB4256868A8001DE2BC /* IOKit */,
+				D69C4CA125686866001DE2BC /* FreeTheSandbox */,
 				82F179EE22DF4ED700231F8C /* sock_port */,
 			);
 			path = Exploits;
+			sourceTree = "<group>";
+		};
+		D69C4CA125686866001DE2BC /* FreeTheSandbox */ = {
+			isa = PBXGroup;
+			children = (
+				D69C4CAB25686895001DE2BC /* ios_7st_utils.m */,
+				D69C4CA725686894001DE2BC /* ios13_change_offsets.m */,
+				D69C4CA525686894001DE2BC /* ios13_kernel_universal.c */,
+				D69C4CA425686894001DE2BC /* ios13_userspace_pac.c */,
+				D69C4CA625686894001DE2BC /* ios13_userspace.c */,
+				D69C4CA925686894001DE2BC /* IOTypes.h */,
+				D69C4CAA25686895001DE2BC /* libsnappy.c */,
+				D69C4CAC25686895001DE2BC /* libsnappy.h */,
+				D69C4CAD25686895001DE2BC /* vnode.h */,
+				D69C4CA825686894001DE2BC /* xpc.h */,
+				D69C4CA325686884001DE2BC /* vnode.h */,
+				D69C4CA225686884001DE2BC /* xpc.h */,
+			);
+			path = FreeTheSandbox;
+			sourceTree = "<group>";
+		};
+		D69C4CB4256868A8001DE2BC /* IOKit */ = {
+			isa = PBXGroup;
+			children = (
+				D69C4CB6256868BB001DE2BC /* IOKitKeys.h */,
+				D69C4CB7256868BB001DE2BC /* IOKitLib.h */,
+				D69C4CB5256868BB001DE2BC /* IOReturn.h */,
+				D69C4CB8256868BB001DE2BC /* IOTypes.h */,
+			);
+			path = IOKit;
 			sourceTree = "<group>";
 		};
 		D6FFA55F24E19E0900CAC2E2 /* Blizzard Jailbreak */ = {
@@ -527,6 +573,9 @@
 				D613B75724E2E8300069CA9B /* amfi_utils.m in Sources */,
 				D6FFA56224E1A59A00CAC2E2 /* blizzardView.m in Sources */,
 				D62CA1EB24E1C7FF002E6756 /* kernel_utils.m in Sources */,
+				D69C4CB225686895001DE2BC /* libsnappy.c in Sources */,
+				D69C4CAF25686895001DE2BC /* ios13_kernel_universal.c in Sources */,
+				D69C4CAE25686895001DE2BC /* ios13_userspace_pac.c in Sources */,
 				D613B78224E2F9980069CA9B /* lzssdec.cpp in Sources */,
 				82F179FF22DF4ED700231F8C /* main.m in Sources */,
 				D613B75824E2E8300069CA9B /* amfid_tools.m in Sources */,
@@ -541,13 +590,16 @@
 				82E9B71522E24BAD0016AA39 /* iosurface.c in Sources */,
 				D613B75924E2E8300069CA9B /* amfid_mem.m in Sources */,
 				D62CA1E824E1C7F7002E6756 /* kexecute.c in Sources */,
+				D69C4CB125686895001DE2BC /* ios13_change_offsets.m in Sources */,
 				D613B76624E2F2D30069CA9B /* kernSymbolication.c in Sources */,
 				D613B76024E2EEFD0069CA9B /* osobject.c in Sources */,
 				8288501522E07C15005D10FC /* offsets.m in Sources */,
+				D69C4CB025686895001DE2BC /* ios13_userspace.c in Sources */,
 				8288501222E07303005D10FC /* kernel_memory.c in Sources */,
 				D613B72724E2A76A0069CA9B /* rootfs_remount.m in Sources */,
 				D62CA1E524E1C7EA002E6756 /* patchfinder64.m in Sources */,
 				D63EDAC124E1989F009B305D /* blizzardJailbreak.m in Sources */,
+				D69C4CB325686895001DE2BC /* ios_7st_utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
