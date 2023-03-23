@@ -20,3 +20,9 @@ Special thanks to the following developers. Their work is used in this project:
 * <a href="https://twitter.com/FCE365">GeoSn0w (Personal Dev Account)</a>
 * <a href="https://twitter.com/GetBlizzardJB">Blizzard Jailbreak</a>
 * <a href="https://youtube.com/fce365official">iDevice Central YouTube Channel</a>
+
+### My Websites
+* <a href="https://idevicecentral.com">Latest iOS 16 Jailbreak News</a>
+* <a href="https://gametutorialpro.com">Latest Gaming News & Guides</a>
+* <a href="https://jailbreak.fce365.info">iOS Jailbreak Forum</a>
+* <a href="https://gsmbypass.com">Latest FRP Bypass Tools & Guides</a>
